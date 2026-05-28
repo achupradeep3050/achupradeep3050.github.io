@@ -1,0 +1,7 @@
+*.txt
+.next
+node_modules
+src
+package*.json
+*.config.*
+*.md
