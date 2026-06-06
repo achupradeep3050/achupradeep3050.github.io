@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Achu Pradeep — Resume</title>
+<style>
+  @page { size: A4; margin: 14mm 14mm; }
+  * { box-sizing: border-box; }
+  body { font-family: "Helvetica Neue", Arial, "Segoe UI", sans-serif; color: #1a1a1a;
+         font-size: 10.3pt; line-height: 1.4; margin: 0; }
+  a { color: #1f3a5f; text-decoration: none; }
+  h1 { font-size: 22pt; margin: 0; letter-spacing: 0.5px; color: #14233a; }
+  .title { font-size: 10.5pt; color: #b07d2b; font-weight: 700; margin: 3px 0 6px;
+           letter-spacing: 0.3px; }
+  .contact { font-size: 9pt; color: #333; }
+  .contact span { white-space: nowrap; }
+  .sep { color: #b8b8b8; padding: 0 6px; }
+  h2 { font-size: 10.5pt; text-transform: uppercase; letter-spacing: 1px; color: #14233a;
+       border-bottom: 1.5px solid #b07d2b; padding-bottom: 2px; margin: 13px 0 6px; }
+  .role { display: flex; justify-content: space-between; align-items: baseline; }
+  .role b { font-size: 10.6pt; color: #14233a; }
+  .role .when { font-size: 8.8pt; color: #666; white-space: nowrap; }
+  .org { font-size: 9.4pt; color: #b07d2b; font-weight: 600; margin: 0 0 2px; }
+  ul { margin: 2px 0 7px; padding-left: 16px; }
+  li { margin: 1.5px 0; }
+  .sk { margin: 2px 0; }
+  .sk b { color: #14233a; }
+  .proj { margin: 3px 0; }
+  .proj b { color: #14233a; }
+  .muted { color: #555; }
+  .two { display: grid; grid-template-columns: 1fr 1fr; gap: 0 24px; }
+  p { margin: 4px 0; }
+</style>
+</head>
+<body>
+
+  <h1>Achu Pradeep</h1>
+  <div class="title">Linux DevOps Engineer · AI Agent Developer · Algorithmic-Trading Systems · RHCSA / RHCE</div>
+  <div class="contact">
+    <span>achupradeep3050@gmail.com</span><span class="sep">|</span>
+    <span>+91-70557-77055</span><span class="sep">|</span>
+    <span>Aluva, Kerala, India</span><span class="sep">|</span>
+    <span><a href="https://github.com/achupradeep3050">github.com/achupradeep3050</a></span><span class="sep">|</span>
+    <span><a href="https://linkedin.com/in/achu-pradeep-702667404">linkedin/achu-pradeep</a></span><span class="sep">|</span>
+    <span><a href="https://hedge.dpdns.org">hedge.dpdns.org</a></span>
+  </div>
+
+  <h2>Summary</h2>
+  <p>RHCSA/RHCE-certified Linux engineer with <b>4+ years</b> across IT/server administration,
+  networking, and security — now designing and shipping <b>AI-agent pipelines</b> (CrewAI) and
+  <b>24/7 algorithmic-trading platforms</b> (FastAPI/React, OANDA/MT5), plus a self-hosted SOC for
+  agentless vulnerability auditing. I bridge classic infrastructure with autonomous automation,
+  owning systems end-to-end from Linux to live dashboards. Seeking <b>Linux DevOps, SRE, AI
+  Infrastructure,</b> or <b>Security Operations</b> roles.</p>
+
+  <h2>Work Experience</h2>
+
+  <div class="role"><b>DevOps Engineer — PanApps Inc.</b><span class="when">Current</span></div>
+  <ul>
+    <li>Manage Linux server infrastructure, Apache/NiFi clusters, and Docker deployments across enterprise clients.</li>
+    <li>Implement CI/CD pipelines with Jenkins and Ansible for automated application deployment.</li>
+    <li>Configure Zabbix monitoring, Wazuh SIEM, and fail2ban for security operations and compliance.</li>
+  </ul>
+
+  <div class="role"><b>System Administrator — Leadership Domestic Workers Service Center</b><span class="when">Dec 2021 – Apr 2023</span></div>
+  <ul>
+    <li>Installed, configured, and maintained Windows Server 2016 and Linux-based infrastructure.</li>
+    <li>Configured LAN/WAN networks, firewalls, and secure connections for government integrations (MOHRE, ICA).</li>
+    <li>Administered attendance/access-control systems, IP telephony, mail server, and company website; supported 100+ end users.</li>
+  </ul>
+
+  <div class="role"><b>Linux System Administrator — IPSR Solutions Ltd</b><span class="when">6-month contract</span></div>
+  <ul>
+    <li>Administered Linux servers — kernel upgrades, firewall, SELinux, LDAP.</li>
+    <li>Configured Apache, SAMBA, NFS, FTP, iSCSI; remote support via SSH; scheduled backups and monitoring.</li>
+  </ul>
+
+  <div class="role"><b>Network Administrator — Ravis Agencies</b><span class="when">Jun 2014 – Jul 2017 (Part-Time)</span></div>
+  <ul>
+    <li>Led LAN/WAN establishment and implementation; installed and configured operating systems.</li>
+    <li>Optimized system security and performance; scheduled backups; implemented IT policies.</li>
+  </ul>
+
+  <h2>Technical Skills</h2>
+  <div class="sk"><b>Linux &amp; Systems:</b> RHEL, CentOS, Fedora, Kali; Windows Server 2016; LVM, systemd, SELinux, cron, kernel tuning</div>
+  <div class="sk"><b>Networking &amp; Security:</b> TCP/IP, DNS, DHCP, iptables/nftables, LDAP, OpenVPN, fail2ban; Wazuh SIEM, OpenVAS/GVM, ClamAV, ModSecurity, CVE scanning</div>
+  <div class="sk"><b>DevOps &amp; Cloud:</b> Docker, Ansible, Jenkins, Apache NiFi, Git, CI/CD, AWS (S3/EC2/IAM); Zabbix, Prometheus, Grafana</div>
+  <div class="sk"><b>AI / Agentic:</b> Python, CrewAI, LangChain, LangGraph, DSPy, ScrapeGraphAI, Hugging Face, Streamlit; Claude, Kimi</div>
+  <div class="sk"><b>Trading Tech:</b> Pine Script v5, TradingView, SMC/ICT, FVG, EMA/SMA, RSI/Bollinger; OANDA, TOOBIT, CCXT, MetaTrader 5</div>
+  <div class="sk"><b>Servers &amp; Data:</b> Apache, Nginx, MySQL/MariaDB, Redis, SAMBA, NFS, Postfix</div>
+
+  <h2>Projects <span class="muted" style="font-weight:400;text-transform:none;letter-spacing:0">— github.com/achupradeep3050</span></h2>
+  <div class="proj"><b>Hermes-USB-Portable:</b> Portable AI agent (Nous Research hermes-agent) that runs on Windows, macOS &amp; Linux from a USB drive with zero host installs — cross-platform launchers, multi-provider model switching (Kimi/Ollama/LM Studio/Gemini), and an Obsidian "brain" for long-term memory.</div>
+  <div class="proj"><b>jobmind-agent:</b> CrewAI multi-agent job-application pipeline — JD scraping, match scoring, resume tailoring, cover-letter and interview-prep generation. Streamlit UI.</div>
+  <div class="proj"><b>VA-Opensource-Audit:</b> Self-hosted SOC dashboard for agentless vulnerability auditing — ClamAV management and OpenVAS/GVM scanning across Linux servers (Ansible), JWT + TOTP RBAC.</div>
+  <div class="proj"><b>xauusd-fvg-algo:</b> Multi-broker automated XAUUSD (gold) trading system — EMA 20/50 bias + Fair Value Gap entries, OANDA + TOOBIT, FastAPI + React dashboard + Android app, Telegram alerts.</div>
+  <div class="proj"><b>sma_cross_scalp_bot:</b> 24/7 automated forex/CFD scalping bot — SMA 8/21/50 crossover on M1, FastAPI + React + MariaDB, profit-booking and ATR consolidation filters.</div>
+  <div class="proj"><b>crypto (MeanreversalRSI):</b> Distributed crypto mean-reversion bot (BTC/ETH/DOGE) — Django/Celery/CCXT with a Windows MetaTrader 5 agent bridge and real-time dashboard.</div>
+  <div class="proj"><b>OBStat:</b> Order-book and market-microstructure analytics with a 1-minute Smart-Money-Concepts scalping engine for algorithmic-trading research.</div>
+  <div class="proj"><b>my-brain:</b> Personal AI knowledge base — an Obsidian vault with vector embeddings and semantic search for persistent agent memory.</div>
+
+  <h2>Open Source</h2>
+  <p>Actively explore and build on leading open-source agent/AI frameworks (Nous Research
+  hermes-agent, InsForge, TradingView-MCP), adapting them into personal trading and DevOps projects.</p>
+
+  <div class="two">
+    <div>
+      <h2>Education</h2>
+      <div><b>Bachelor of Computer Applications (BCA)</b><br><span class="muted">Rabindranath Tagore University</span></div>
+      <div style="margin-top:4px"><b>B.Com with Computer Application</b><br><span class="muted">Kerala University</span></div>
+      <div style="margin-top:4px" class="muted">12th &amp; 10th — CBSE</div>
+    </div>
+    <div>
+      <h2>Certifications</h2>
+      <ul style="margin-top:4px">
+        <li>Red Hat Certified System Administrator (RHCSA) — Cert ID 170-179-113</li>
+        <li>Red Hat Certified Engineer (RHCE)</li>
+        <li>Certified Ethical Hacking (CEH)</li>
+      </ul>
+    </div>
+  </div>
+
+</body>
+</html>
