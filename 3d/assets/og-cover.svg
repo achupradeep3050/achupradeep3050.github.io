@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630">
+  <defs>
+    <radialGradient id="bg" cx="72%" cy="40%" r="65%">
+      <stop offset="0%" stop-color="#0d1730"></stop>
+      <stop offset="100%" stop-color="#050A14"></stop>
+    </radialGradient>
+    <radialGradient id="core" cx="50%" cy="45%" r="60%">
+      <stop offset="0%" stop-color="#FFCB45"></stop>
+      <stop offset="50%" stop-color="#F5B301"></stop>
+      <stop offset="100%" stop-color="#F5B301" stop-opacity="0"></stop>
+    </radialGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg)"></rect>
+  <g opacity="0.5">
+    <circle cx="60" cy="120" r="2" fill="#27E1C1"></circle><circle cx="220" cy="430" r="1.6" fill="#F5B301"></circle>
+    <circle cx="500" cy="90" r="1.6" fill="#fff"></circle><circle cx="980" cy="540" r="2" fill="#27E1C1"></circle>
+    <circle cx="1120" cy="120" r="1.6" fill="#F5B301"></circle><circle cx="700" cy="560" r="1.6" fill="#fff"></circle>
+  </g>
+  <g transform="translate(880 315)">
+    <g fill="none" stroke="#27E1C1" stroke-width="3" opacity="0.55">
+      <ellipse rx="220" ry="92" transform="rotate(22)"></ellipse>
+      <ellipse rx="220" ry="92" transform="rotate(-30)"></ellipse>
+    </g>
+    <g fill="none" stroke="#F5B301" stroke-width="3.5">
+      <polygon points="0,-150 130,0 0,150 -130,0"></polygon>
+    </g>
+    <circle r="120" fill="url(#core)"></circle>
+    <circle r="34" fill="#FFE9A8"></circle>
+  </g>
+  <text x="80" y="290" font-family="&#39;Space Grotesk&#39;,sans-serif" font-size="74" font-weight="700" fill="#EAF0FF">Achu Pradeep</text>
+  <text x="82" y="345" font-family="&#39;IBM Plex Mono&#39;,monospace" font-size="25" fill="#F5B301">Linux DevOps · AI Agents · Algo-Trading</text>
+</svg>

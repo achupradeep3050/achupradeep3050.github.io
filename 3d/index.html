@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Achu Pradeep — Linux DevOps · AI Agents · Algo-Trading</title>
+<meta name="description" content="Achu Pradeep — Linux DevOps Engineer, AI-Agent Developer and Algorithmic-Trading Systems Builder. 4+ years building observable, hardened infrastructure, autonomous agents and 24/7 trading systems." />
+<meta name="author" content="Achu Pradeep" />
+<meta name="theme-color" content="#050A14" />
+<!-- Open Graph -->
+<meta property="og:type" content="website" />
+<meta property="og:title" content="Achu Pradeep — Command Cosmos" />
+<meta property="og:description" content="Linux DevOps Engineer · AI-Agent Developer · Algorithmic-Trading Systems Builder." />
+<meta property="og:image" content="assets/og-cover.svg" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="Achu Pradeep — Command Cosmos" />
+<meta name="twitter:description" content="Linux DevOps Engineer · AI-Agent Developer · Algorithmic-Trading Systems Builder." />
+<link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="styles.css" />
+
+<!-- Import map for three.js + addons -->
+<script type="importmap">
+{
+  "imports": {
+    "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
+    "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/"
+  }
+}
+</script>
+<!-- GSAP + Lenis (UMD globals) -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@studio-freight/lenis@1.0.42/dist/lenis.min.js"></script>
+</head>
+<body>
+
+<!-- ============ BOOT LOADER ============ -->
+<div id="boot" class="boot" aria-hidden="true">
+  <div class="boot__inner">
+    <div class="boot__core" aria-hidden="true"><span></span><span></span><span></span></div>
+    <pre id="bootlog" class="boot__log"></pre>
+    <div class="boot__bar"><i id="bootbar"></i></div>
+    <button id="bootskip" class="boot__skip" type="button">skip&nbsp;›</button>
+  </div>
+</div>
+
+<!-- ============ PERSISTENT 3D COSMOS ============ -->
+<canvas id="cosmos" aria-hidden="true"></canvas>
+<div class="cosmos-fallback" aria-hidden="true"></div>
+<div id="cursor-light" aria-hidden="true"></div>
+<div class="grain" aria-hidden="true"></div>
+
+<!-- ============ NAV ============ -->
+<header class="nav" id="nav">
+  <a class="nav__brand" href="#hero" data-fly="hero">
+    <span class="nav__mark" aria-hidden="true"></span>
+    <span class="nav__name">ACHU<em>PRADEEP</em></span>
+  </a>
+  <nav class="nav__links" aria-label="Primary">
+    <a href="#about" data-fly="about">About</a>
+    <a href="#skills" data-fly="skills">Skills</a>
+    <a href="#projects" data-fly="projects">Projects</a>
+    <a href="#trading" data-fly="trading">Trading</a>
+    <a href="#experience" data-fly="experience">Experience</a>
+    <a href="#contact" data-fly="contact">Contact</a>
+  </nav>
+  <a class="nav__cta" href="assets/Achu-Pradeep-Resume.pdf" target="_blank" rel="noopener">Resume</a>
+  <button class="nav__menu" id="navmenu" type="button" aria-label="Menu"><span></span><span></span></button>
+</header>
+
+<main>
+
+<!-- ============ HERO ============ -->
+<section id="hero" class="section hero" data-cam="hero" data-screen-label="Hero">
+  <div class="hero__content">
+    <div class="hero__eyebrow"><span class="dot"></span>COMMAND&nbsp;COSMOS&nbsp;//&nbsp;OPERATOR ONLINE</div>
+    <h1 class="hero__name">Achu&nbsp;Pradeep</h1>
+    <div class="hero__role"><span id="role-type"></span><span class="cursor cursor--role" aria-hidden="true"></span></div>
+    <p class="hero__sub">Linux DevOps Engineer building observable, hardened infrastructure — plus autonomous AI agents and 24/7 algorithmic-trading systems.</p>
+    <div class="hero__meta">
+      <span><i data-i="loc"></i>Aluva, Kerala · India</span>
+      <span><i data-i="exp"></i>4+ years</span>
+      <span><i data-i="cert"></i>RHCSA · RHCE · CEH</span>
+    </div>
+    <div class="hero__cta">
+      <a class="btn btn--primary magnetic" href="#projects" data-fly="projects">Enter the World</a>
+      <a class="btn btn--ghost magnetic" href="assets/Achu-Pradeep-Resume.pdf" target="_blank" rel="noopener">Download Resume</a>
+    </div>
+  </div>
+  <div class="hero__scroll" aria-hidden="true"><span>scroll to travel</span><i></i></div>
+</section>
+
+<!-- ============ ABOUT ============ -->
+<section id="about" class="section about" data-cam="about" data-screen-label="About">
+  <div class="wrap about__grid">
+    <div class="about__portrait">
+      <div class="portrait-frame">
+        <img class="portrait-img" src="assets/portrait.jpg" alt="Achu Pradeep" />
+        <span class="portrait-grade"></span>
+        <span class="portrait-grid"></span>
+        <span class="portrait-hud portrait-hud--tl"></span>
+        <span class="portrait-hud portrait-hud--br"></span>
+        <span class="portrait-scan"></span>
+        <span class="portrait-tag">// OPERATOR — A. PRADEEP</span>
+      </div>
+    </div>
+    <div class="about__body">
+      <p class="kicker">01 — The Operator</p>
+      <h2 class="h2">I run a glowing command cosmos.</h2>
+      <p class="lead">Achu Pradeep is a Linux DevOps engineer based in Aluva, Kerala, with 4+ years building and securing production systems. He architects observable, hardened infrastructure, develops autonomous AI agents with tool-use, and engineers 24/7 algorithmic-trading systems — bringing a SOC-grade security mindset to everything he ships.</p>
+      <div class="stats">
+        <div class="stat"><b class="count" data-to="4" data-suffix="+">0</b><span>Years experience</span></div>
+        <div class="stat"><b>3</b><span>Red Hat / EC-Council certs</span></div>
+        <div class="stat"><b class="count" data-to="6" data-suffix="+">0</b><span>Featured systems</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SKILLS ============ -->
+<section id="skills" class="section skills" data-cam="skills" data-screen-label="Skills">
+  <div class="wrap">
+    <p class="kicker">02 — Systems Orbit</p>
+    <h2 class="h2">Everything orbiting the core.</h2>
+    <div class="skills__grid" id="skillgrid"></div>
+  </div>
+</section>
+
+<!-- ============ PROJECTS ============ -->
+<section id="projects" class="section projects" data-cam="projects" data-screen-label="Projects">
+  <div class="wrap">
+    <p class="kicker">03 — The Constellation</p>
+    <h2 class="h2">Six modules in the dark.</h2>
+    <p class="section-hint" id="proj-hint">Select a module<span class="hint-sub"> — tap a glowing node above or a card below</span></p>
+  </div>
+  <div class="constellation-stage" id="constellation" aria-hidden="true"></div>
+  <div class="wrap">
+    <div class="proj-grid" id="projgrid"></div>
+  </div>
+</section>
+
+<!-- ============ TRADING LAB ============ -->
+<section id="trading" class="section trading" data-cam="trading" data-screen-label="Trading Lab">
+  <div class="wrap trading__grid">
+    <div class="trading__body reveal">
+      <p class="kicker">04 — Market Signals</p>
+      <h2 class="h2">A lab that never sleeps.</h2>
+      <p class="lead">Pine Script v5 strategies grounded in SMC / ICT — Fair-Value-Gaps, EMA/SMA structure — wired into FastAPI + React dashboards that trade gold and forex 24/7 across OANDA and MetaTrader 5, with automated risk controls and Telegram alerts.</p>
+      <ul class="tags tags--lg">
+        <li>Pine Script v5</li><li>TradingView</li><li>SMC / ICT</li><li>FVG</li><li>EMA / SMA</li><li>OANDA</li><li>MetaTrader 5</li>
+      </ul>
+    </div>
+    <div class="trading__viz reveal" aria-hidden="true">
+      <img class="viz-chart" src="assets/trading-chart.jpg" alt="" />
+      <span class="viz-grid"></span>
+      <span class="viz-scan"></span>
+      <span class="viz-fvg viz-fvg--1"></span>
+      <span class="viz-fvg viz-fvg--2"></span>
+      <span class="viz-live"><i></i>LIVE · XAUUSD</span>
+      <div class="viz-tag">market signal field · stylized capture</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ EXPERIENCE ============ -->
+<section id="experience" class="section experience" data-cam="experience" data-screen-label="Experience">
+  <div class="wrap">
+    <p class="kicker">05 — Timeline Warp</p>
+    <h2 class="h2">Four years, four control rooms.</h2>
+    <ol class="timeline" id="timeline"></ol>
+  </div>
+</section>
+
+<!-- ============ CERTIFICATIONS ============ -->
+<section id="certs" class="section certs" data-cam="experience" data-screen-label="Certifications">
+  <div class="wrap">
+    <p class="kicker">06 — Holo Badges</p>
+    <h2 class="h2">Credentials, charged.</h2>
+    <div class="badges" id="badges"></div>
+    <p class="edu">Education · <strong>BCA</strong>, Rabindranath Tagore University &nbsp;·&nbsp; <strong>B.Com</strong>, CHMM College, Kerala</p>
+  </div>
+</section>
+
+<!-- ============ CONTACT ============ -->
+<section id="contact" class="section contact" data-cam="contact" data-screen-label="Contact">
+  <div class="wrap contact__wrap">
+    <p class="kicker">07 — Open a Channel</p>
+    <div class="terminal" id="terminal">
+      <div class="terminal__bar"><span></span><span></span><span></span><em>achu@cosmos: ~</em></div>
+      <pre class="terminal__body" id="terminalbody"></pre>
+    </div>
+    <div class="contact__links">
+      <a class="contact-link magnetic" href="mailto:achupradeep3050@gmail.com">
+        <i data-i="mail"></i><span><b>Email</b>achupradeep3050@gmail.com</span>
+      </a>
+      <a class="contact-link magnetic" href="https://github.com/achupradeep3050" target="_blank" rel="noopener">
+        <i data-i="gh"></i><span><b>GitHub</b>github.com/achupradeep3050</span>
+      </a>
+      <a class="contact-link magnetic" href="https://www.linkedin.com/in/achu-pradeep-702667404" target="_blank" rel="noopener">
+        <i data-i="in"></i><span><b>LinkedIn</b>achu-pradeep-702667404</span>
+      </a>
+      <a class="contact-link magnetic" href="tel:+917055777055">
+        <i data-i="ph"></i><span><b>Phone</b>+91 70557 77055</span>
+      </a>
+    </div>
+    <a class="btn btn--primary magnetic contact__resume" href="assets/Achu-Pradeep-Resume.pdf" target="_blank" rel="noopener">Download Resume</a>
+  </div>
+</section>
+
+</main>
+
+<footer class="footer">
+  <div class="wrap footer__row">
+    <span class="nav__name">ACHU<em>PRADEEP</em></span>
+    <span class="footer__meta">Aluva, Kerala · India &nbsp;//&nbsp; Built in a dark world, 2026</span>
+  </div>
+</footer>
+
+<!-- ============ PROJECT MODAL ============ -->
+<div class="modal" id="modal" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+  <div class="modal__backdrop" data-close></div>
+  <div class="modal__card" role="document">
+    <button class="modal__close" data-close type="button" aria-label="Close">✕</button>
+    <div class="modal__media" id="modal-media"></div>
+    <div class="modal__info">
+      <span class="modal__idx" id="modal-idx"></span>
+      <h3 class="modal__title" id="modal-title"></h3>
+      <p class="modal__desc" id="modal-desc"></p>
+      <ul class="tags" id="modal-tags"></ul>
+      <div class="modal__actions">
+        <a class="btn btn--primary" id="modal-gh" target="_blank" rel="noopener">View on GitHub</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="app.js" type="module"></script>
+</body>
+</html>

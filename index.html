@@ -163,11 +163,46 @@ nav.scrolled{background:rgba(5,10,20,0.85);backdrop-filter:blur(20px);-webkit-ba
 *,*::before,*::after{animation-duration:0.01ms!important;animation-iteration-count:1!important;transition-duration:0.01ms!important}
 .reveal{opacity:1;transform:none}
 }
+
+/* ===== 3D PORTFOLIO LAUNCHER (floating) ===== */
+.fab-3d{position:fixed;bottom:24px;right:24px;z-index:200;display:flex;flex-direction:row;align-items:center;text-decoration:none;cursor:pointer}
+.fab-3d__label{max-width:0;overflow:hidden;white-space:nowrap;font-family:'Space Grotesk',sans-serif;font-size:13px;font-weight:600;color:#050A14;background:#00d4ff;border-radius:14px 0 0 14px;padding:0;opacity:0;transition:all 0.35s cubic-bezier(0.22,1,0.36,1);box-shadow:0 0 20px rgba(0,212,255,0.4);margin-right:-18px}
+.fab-3d:hover .fab-3d__label,.fab-3d:focus-visible .fab-3d__label{max-width:220px;opacity:1;padding:11px 26px 11px 16px}
+.fab-3d__scene{position:relative;width:64px;height:64px;perspective:600px;display:flex;align-items:center;justify-content:center;border-radius:18px;background:rgba(5,10,20,0.6);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border:1px solid rgba(0,212,255,0.3);box-shadow:0 0 24px rgba(0,212,255,0.25),0 8px 24px rgba(0,0,0,0.4);transition:all 0.3s cubic-bezier(0.22,1,0.36,1)}
+.fab-3d:hover .fab-3d__scene,.fab-3d:focus-visible .fab-3d__scene{border-color:rgba(0,212,255,0.6);box-shadow:0 0 40px rgba(0,212,255,0.5),0 8px 30px rgba(0,0,0,0.5);transform:translateY(-2px)}
+.fab-3d__cube{position:relative;width:26px;height:26px;transform-style:preserve-3d;animation:fab3dSpin 7s linear infinite}
+.fab-3d:hover .fab-3d__cube,.fab-3d:focus-visible .fab-3d__cube{animation-duration:2.5s}
+.fab-3d__face{position:absolute;width:26px;height:26px;border:1.5px solid #00d4ff;background:rgba(0,212,255,0.08);box-shadow:inset 0 0 12px rgba(0,212,255,0.3)}
+.fab-3d__face--front{transform:translateZ(13px)}
+.fab-3d__face--back{transform:rotateY(180deg) translateZ(13px)}
+.fab-3d__face--right{transform:rotateY(90deg) translateZ(13px);border-color:#f5c518;background:rgba(245,197,24,0.08);box-shadow:inset 0 0 12px rgba(245,197,24,0.3)}
+.fab-3d__face--left{transform:rotateY(-90deg) translateZ(13px);border-color:#f5c518;background:rgba(245,197,24,0.08);box-shadow:inset 0 0 12px rgba(245,197,24,0.3)}
+.fab-3d__face--top{transform:rotateX(90deg) translateZ(13px)}
+.fab-3d__face--bottom{transform:rotateX(-90deg) translateZ(13px)}
+@keyframes fab3dSpin{from{transform:rotateX(-22deg) rotateY(0)}to{transform:rotateX(-22deg) rotateY(360deg)}}
+.fab-3d__badge{position:absolute;top:-7px;right:-7px;background:#f5c518;color:#050A14;font-family:'Space Grotesk',sans-serif;font-size:9px;font-weight:700;padding:2px 6px;border-radius:100px;letter-spacing:0.05em;box-shadow:0 0 12px rgba(245,197,24,0.55)}
+@media(max-width:600px){.fab-3d{bottom:18px;right:18px}.fab-3d__scene{width:56px;height:56px}.fab-3d:hover .fab-3d__label,.fab-3d:focus-visible .fab-3d__label{max-width:0;opacity:0;padding:0}}
 </style>
 </head>
 <body>
 <div id="canvas-container"></div>
 <div class="spotlight" id="spotlight"></div>
+
+<!-- Floating launcher for the full animated 3D portfolio -->
+<a class="fab-3d" href="/3d/" aria-label="View my full animated 3D portfolio" title="View my full animated 3D portfolio">
+<span class="fab-3d__label">View 3D Portfolio</span>
+<span class="fab-3d__scene">
+<span class="fab-3d__cube">
+<span class="fab-3d__face fab-3d__face--front"></span>
+<span class="fab-3d__face fab-3d__face--back"></span>
+<span class="fab-3d__face fab-3d__face--right"></span>
+<span class="fab-3d__face fab-3d__face--left"></span>
+<span class="fab-3d__face fab-3d__face--top"></span>
+<span class="fab-3d__face fab-3d__face--bottom"></span>
+</span>
+<span class="fab-3d__badge">3D</span>
+</span>
+</a>
 
 <nav id="navbar">
 <div class="nav-inner">
