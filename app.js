@@ -27,22 +27,22 @@ const PROJECT_ICONS = {
 };
 
 const PROJECTS = [
-  { name:'Hermes-USB-Portable', kind:'PORTABLE AGENT', icon:'usb', color:'#27E1C1', repo:'Hermes-USB-Portable',
+  { name:'Hermes-USB-Portable', kind:'PORTABLE AGENT', icon:'usb', color:'#27E1C1', cover:'hermes', repo:'Hermes-USB-Portable',
     desc:'A portable AI agent that runs from a USB stick on Windows, macOS and Linux with zero host installs — multi-provider model switching plus a guardrailed CLI (dry-run + audit).',
     tags:['Python','Multi-provider','Guardrailed CLI','Cross-platform'] },
-  { name:'jobmind-agent', kind:'MULTI-AGENT', icon:'agent', color:'#3BE0C8', repo:'jobmind-agent',
+  { name:'jobmind-agent', kind:'MULTI-AGENT', icon:'agent', color:'#3BE0C8', cover:'jobmind', repo:'jobmind-agent',
     desc:'A CrewAI multi-agent job-application pipeline — scrape → score → tailor → generate — wrapped in a Streamlit UI.',
     tags:['CrewAI','Multi-agent','Streamlit','Python'] },
-  { name:'VA-Opensource-Audit', kind:'SOC / SECURITY', icon:'shield', color:'#5BE8B0', repo:'VA-Opensource-Audit',
+  { name:'VA-Opensource-Audit', kind:'SOC / SECURITY', icon:'shield', color:'#5BE8B0', cover:'vaaudit', repo:'VA-Opensource-Audit',
     desc:'A self-hosted SOC dashboard for agentless vulnerability auditing (OpenVAS / GVM + ClamAV) across Linux servers, with JWT + TOTP access control.',
     tags:['OpenVAS / GVM','ClamAV','JWT + TOTP','SOC'] },
-  { name:'xauusd-fvg-algo', kind:'GOLD TRADING', icon:'candle', color:'#FFCB45', repo:'xauusd-fvg-algo',
+  { name:'xauusd-fvg-algo', kind:'GOLD TRADING', icon:'candle', color:'#FFCB45', cover:'xauusd', repo:'xauusd-fvg-algo',
     desc:'A 24/7 multi-broker automated gold (XAUUSD) trading system — FastAPI + React dashboard with Telegram alerts.',
     tags:['FastAPI','React','FVG','Telegram','Multi-broker'] },
-  { name:'sma_cross_scalp_bot', kind:'FOREX SCALPER', icon:'bolt', color:'#F5A201', repo:'sma_cross_scalp_bot',
+  { name:'sma_cross_scalp_bot', kind:'FOREX SCALPER', icon:'bolt', color:'#F5A201', cover:'sma', repo:'sma_cross_scalp_bot',
     desc:'A 24/7 forex / CFD scalping bot — FastAPI + React + MariaDB with automated risk controls.',
     tags:['FastAPI','React','MariaDB','Risk controls'] },
-  { name:'OBStat', kind:'MARKET ANALYTICS', icon:'chart', color:'#9AE6FF', repo:'OBStat',
+  { name:'OBStat', kind:'MARKET ANALYTICS', icon:'chart', color:'#9AE6FF', cover:'obstat', repo:'OBStat',
     desc:'Order-book & market-microstructure analytics for algorithmic-trading research.',
     tags:['Order book','Microstructure','Analytics','Research'] },
 ];
@@ -94,15 +94,19 @@ function buildDOM(){
   const pg = document.getElementById('projgrid');
   pg.innerHTML = PROJECTS.map((p,i)=>`
     <article class="proj-card reveal" data-i="${i}" style="--pc:${p.color}">
-      <div class="proj-card__head">
+      <div class="proj-card__media">
+        <img src="assets/cover-${p.cover}.jpg" alt="${p.name} cover" loading="lazy" />
+        <span class="proj-card__scan"></span>
+        <span class="proj-card__cat">${p.kind}</span>
         <div class="proj-card__icon">${PROJECT_ICONS[p.icon]||''}</div>
-        <span class="proj-card__idx">0${i+1}</span>
       </div>
-      <span class="proj-card__cat">${p.kind}</span>
-      <h3>${p.name}</h3>
-      <p>${p.desc}</p>
-      <ul class="tags">${p.tags.slice(0,4).map(t=>`<li>${t}</li>`).join('')}</ul>
-      <span class="proj-card__open">open module <i>→</i></span>
+      <div class="proj-card__body">
+        <span class="proj-card__idx">0${i+1}</span>
+        <h3>${p.name}</h3>
+        <p>${p.desc}</p>
+        <ul class="tags">${p.tags.slice(0,4).map(t=>`<li>${t}</li>`).join('')}</ul>
+        <span class="proj-card__open">open module <i>→</i></span>
+      </div>
     </article>`).join('');
 
   // timeline
@@ -230,6 +234,7 @@ function animCount(el){
 }
 
 /* ---------------- MODAL ---------------- */
+let modalOpen = false;
 function openModal(i){
   const p = PROJECTS[i]; if(!p) return;
   document.getElementById('modal-idx').textContent = `MODULE 0${i+1} · ${p.kind}`;
@@ -239,15 +244,24 @@ function openModal(i){
   const gh = document.getElementById('modal-gh');
   gh.href = `https://github.com/achupradeep3050/${p.repo}`;
   document.getElementById('modal-media').innerHTML =
-    `<div class="ph-frame"></div>
+    `<img class="modal-cover" src="assets/cover-${p.cover}.jpg" alt="${p.name} cover" />
+     <span class="modal-cover__scan"></span>
      <div class="modal-orb" style="--pc:${p.color}"><span class="modal-orb__glow"></span><span class="modal-orb__icon">${PROJECT_ICONS[p.icon]||''}</span></div>
-     <div class="viz-tag" style="position:absolute;top:14px;left:16px">demo capture — drop MP4 / WebM</div>`;
+     <div class="viz-tag" style="position:absolute;bottom:14px;left:16px;z-index:3">module preview — drop a real demo capture (MP4 / WebM)</div>`;
   const m = document.getElementById('modal');
   m.classList.add('open'); m.setAttribute('aria-hidden','false');
+  document.body.classList.add('modal-lock');
+  modalOpen = true;
+  if (cosmos) cosmos.setHover(-1);
+  document.getElementById('cosmos')?.classList.remove('interactive');
 }
 function closeModal(){
   const m = document.getElementById('modal');
   m.classList.remove('open'); m.setAttribute('aria-hidden','true');
+  document.body.classList.remove('modal-lock');
+  modalOpen = false;
+  // restore canvas interactivity if still on projects
+  document.getElementById('cosmos')?.classList.toggle('interactive', document.querySelector('.nav__links a.active')?.dataset.fly==='projects');
 }
 
 /* ---------------- SCROLL / NAV / OBSERVERS ---------------- */
@@ -325,8 +339,8 @@ function initSkillsRail(){
   const bar = document.getElementById('skillbar');
   if (!section || !rail) return;
 
-  let enabled = window.innerWidth > 760 && !STATIC;
-  function dist(){ return Math.max(0, rail.scrollWidth - rail.parentElement.clientWidth + 8); }
+  let enabled = !STATIC;
+  function dist(){ return Math.max(0, rail.scrollWidth - rail.clientWidth); }
   function onScroll(){
     if (!enabled) return;
     const rect = section.getBoundingClientRect();
@@ -336,7 +350,7 @@ function initSkillsRail(){
     if (bar) bar.style.width = (p*100).toFixed(1) + '%';
   }
   function syncMode(){
-    enabled = window.innerWidth > 760 && !STATIC;
+    enabled = !STATIC;
     rail.classList.toggle('rail-on', enabled);
     if (!enabled){ rail.style.transform = ''; }
     else onScroll();
@@ -363,7 +377,7 @@ function initPointer(){
   window.addEventListener('pointermove', e=>{
     light.style.transform = `translate(${e.clientX}px, ${e.clientY}px)`;
     light.style.opacity = '1';
-    if (cosmos){
+    if (cosmos && !modalOpen){
       cosmos.setMouse((e.clientX/window.innerWidth)*2-1, -((e.clientY/window.innerHeight)*2-1));
       const hit = cosmos.pick(e.clientX, e.clientY);
       cosmos.setHover(hit);
@@ -372,10 +386,12 @@ function initPointer(){
         tip.textContent = PROJECTS[hit].name;
         tip.style.left = e.clientX+'px'; tip.style.top = e.clientY+'px'; tip.style.opacity='1';
       } else { document.body.style.cursor=''; tip.style.opacity='0'; }
-    }
+    } else if (modalOpen){ tip.style.opacity='0'; document.body.style.cursor=''; }
   }, { passive:true });
 
   window.addEventListener('click', e=>{
+    // never let a 3D pick fire while the modal is open or when clicking UI chrome
+    if (modalOpen || e.target.closest('.modal, .nav, .proj-card, a, button')) return;
     if (cosmos){ const hit = cosmos.pick(e.clientX, e.clientY); if (hit>=0){ openModal(hit); } }
   });
 
