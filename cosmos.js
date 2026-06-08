@@ -39,7 +39,8 @@ export function createCosmos(canvas, projects, opts = {}) {
   scene.fog = new THREE.FogExp2(0x050A14, 0.034);
 
   const camera = new THREE.PerspectiveCamera(52, window.innerWidth/window.innerHeight, 0.1, 200);
-  camera.position.set(0, 0, 9.2);
+  camera.fov = (window.innerWidth < 760 || window.innerHeight > window.innerWidth) ? 64 : 52;
+  camera.updateProjectionMatrix();
 
   scene.add(new THREE.AmbientLight(0x223355, 0.55));
   const key = new THREE.PointLight(GOLD, 1.6, 60); key.position.set(4, 5, 6); scene.add(key);
@@ -187,9 +188,16 @@ export function createCosmos(canvas, projects, opts = {}) {
     targetVis:{ core:1, rings:1, planets:0, trading:0 },
     motion:opts.motion ?? 1, hovered:-1,
   };
+  const MOBILE = !!opts.mobile;
   function applyTarget(name){
     const c = CAM[name] || CAM.hero;
-    state.targetPos.set(...c.pos); state.targetLook.set(...c.look);
+    let pos = [...c.pos], look = [...c.look];
+    if (MOBILE){
+      // pull back + recenter so the scene frames inside a portrait viewport
+      pos = [ pos[0]*0.35, pos[1]*0.8, pos[2]*1.32 ];
+      look = [ look[0]*0.3, look[1]*0.8, look[2] ];
+    }
+    state.targetPos.set(...pos); state.targetLook.set(...look);
     const v = state.targetVis;
     v.core = (name==='trading') ? 0 : (name==='projects') ? 0.07 : 1;
     v.rings = (name==='hero'||name==='skills'||name==='about') ? 1 : (name==='contact'?0.4:0);
@@ -295,7 +303,10 @@ export function createCosmos(canvas, projects, opts = {}) {
 
   function resize(){
     const w=window.innerWidth, h=window.innerHeight;
-    camera.aspect=w/h; camera.updateProjectionMatrix();
+    camera.aspect=w/h;
+    // widen FOV on portrait / phone so the core stays framed
+    camera.fov = (w < 760 || h > w) ? 64 : 52;
+    camera.updateProjectionMatrix();
     renderer.setSize(w,h); composer.setSize(w,h); bloom.setSize(w,h);
     if(!running) renderOnce();
   }

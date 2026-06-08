@@ -70,17 +70,24 @@ const ICONS = {
 /* ---------------- ENV ---------------- */
 const prefersReduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
 const isSmall = matchMedia('(max-width: 760px)').matches;
-const STATIC = prefersReduced || isSmall;
+const isTouch = matchMedia('(hover: none)').matches;
+const STATIC = prefersReduced;            // mobile now gets the full 3D world
+const HYPER = 1.65;                        // default motion intensity
 let cosmos = null;
 
 /* ---------------- BUILD DOM ---------------- */
 function buildDOM(){
-  // skills
+  // skills — bold cards in a horizontal rail
   const sg = document.getElementById('skillgrid');
-  sg.innerHTML = SKILLS.map(s=>`
-    <article class="skill-card reveal" style="--card-accent:${s.c}">
-      <div class="skill-card__head"><span class="skill-node"></span><h3>${s.t}</h3></div>
-      <ul class="tags">${s.items.map(i=>`<li>${i}</li>`).join('')}</ul>
+  sg.innerHTML = SKILLS.map((s,i)=>`
+    <article class="skill-card" style="--card-accent:${s.c}">
+      <div class="skill-card__top">
+        <span class="skill-card__no">0${i+1}</span>
+        <span class="skill-node"></span>
+      </div>
+      <h3>${s.t}</h3>
+      <ul class="tags">${s.items.map(x=>`<li>${x}</li>`).join('')}</ul>
+      <span class="skill-card__count">${s.items.length} tools</span>
     </article>`).join('');
 
   // projects
@@ -252,7 +259,8 @@ function initScroll(){
   // smooth scroll (Lenis) unless static
   let lenis = null;
   if (!STATIC && window.Lenis){
-    lenis = new Lenis({ duration:1.1, smoothWheel:true });
+    lenis = new Lenis({ duration:1.2, smoothWheel:true });
+    window.__lenis = lenis;
     function raf(t){ lenis.raf(t); requestAnimationFrame(raf); }
     requestAnimationFrame(raf);
   }
@@ -270,20 +278,24 @@ function initScroll(){
   const onScroll = ()=>{ nav.classList.toggle('scrolled', window.scrollY > 40); };
   window.addEventListener('scroll', onScroll, { passive:true }); onScroll();
 
-  // active section → cosmos camera + nav highlight
-  const camIO = new IntersectionObserver(entries=>{
-    entries.forEach(en=>{
-      if (en.isIntersecting && en.intersectionRatio > 0.4){
-        const cam = en.target.dataset.cam;
-        if (cosmos) cosmos.flyTo(cam);
-        const id = en.target.id;
-        navLinks.forEach(l=>l.classList.toggle('active', l.dataset.fly===id));
-        document.getElementById('cosmos')?.classList.toggle('interactive', id==='projects');
-        if (id==='contact') runTerminal();
-      }
-    });
-  }, { threshold:[0.4, 0.6] });
-  sections.forEach(s=>camIO.observe(s));
+  // active section → cosmos camera + nav highlight (scroll-driven, handles tall sections)
+  let lastCam = null, lastId = null;
+  function updateActive(){
+    const mid = window.scrollY + window.innerHeight * 0.45;
+    let cur = sections[0];
+    for (const s of sections){ if (s.offsetTop <= mid) cur = s; }
+    const id = cur.id, cam = cur.dataset.cam;
+    if (id !== lastId){
+      lastId = id;
+      navLinks.forEach(l=>l.classList.toggle('active', l.dataset.fly===id));
+      document.getElementById('cosmos')?.classList.toggle('interactive', id==='projects');
+      if (id==='contact') runTerminal();
+    }
+    if (cam !== lastCam){ lastCam = cam; if (cosmos) cosmos.flyTo(cam); }
+  }
+  window.addEventListener('scroll', updateActive, { passive:true });
+  if (lenis) lenis.on('scroll', updateActive);
+  updateActive();
 
   // reveal + counters + timeline
   const revIO = new IntersectionObserver(entries=>{
@@ -304,6 +316,35 @@ function initScroll(){
     entries.forEach(en=>{ if (en.isIntersecting) en.target.classList.add('lit'); });
   }, { threshold:0.5 });
   document.querySelectorAll('.tl-item').forEach(el=>tlIO.observe(el));
+}
+
+/* ---------------- SKILLS HORIZONTAL RAIL ---------------- */
+function initSkillsRail(){
+  const section = document.getElementById('skills');
+  const rail = document.getElementById('skillgrid');
+  const bar = document.getElementById('skillbar');
+  if (!section || !rail) return;
+
+  let enabled = window.innerWidth > 760 && !STATIC;
+  function dist(){ return Math.max(0, rail.scrollWidth - rail.parentElement.clientWidth + 8); }
+  function onScroll(){
+    if (!enabled) return;
+    const rect = section.getBoundingClientRect();
+    const total = section.offsetHeight - window.innerHeight;
+    const p = total > 0 ? Math.min(1, Math.max(0, -rect.top / total)) : 0;
+    rail.style.transform = `translate3d(${(-p*dist()).toFixed(1)}px,0,0)`;
+    if (bar) bar.style.width = (p*100).toFixed(1) + '%';
+  }
+  function syncMode(){
+    enabled = window.innerWidth > 760 && !STATIC;
+    rail.classList.toggle('rail-on', enabled);
+    if (!enabled){ rail.style.transform = ''; }
+    else onScroll();
+  }
+  window.addEventListener('scroll', onScroll, { passive:true });
+  if (window.__lenis) window.__lenis.on('scroll', onScroll);
+  window.addEventListener('resize', syncMode);
+  syncMode();
 }
 
 /* ---------------- MENU ---------------- */
@@ -360,65 +401,12 @@ function initCards(){
   window.addEventListener('keydown', e=>{ if (e.key==='Escape') closeModal(); });
 }
 
-/* ---------------- CONTROL DECK ---------------- */
-const ACCENTS = {
-  amber:  { core:'#F5B301', a:'#F5B301', a2:'#27E1C1' },
-  cyan:   { core:'#27E1C1', a:'#27E1C1', a2:'#F5B301' },
-  fusion: { core:'#FFCB45', a:'#FFCB45', a2:'#27E1C1' },
-};
-function applyAccent(key){
-  const a = ACCENTS[key] || ACCENTS.amber;
-  document.documentElement.style.setProperty('--accent', a.a);
-  document.documentElement.style.setProperty('--accent-2', a.a2);
-  if (cosmos) cosmos.setAccent(a.core);
-  localStorage.setItem('cc-accent', key);
-}
-function initDeck(){
-  const prefMotion = localStorage.getItem('cc-motion') || 'cruise';
-  const prefAccent = localStorage.getItem('cc-accent') || 'amber';
-  const deck = document.createElement('div');
-  deck.className = 'deck';
-  deck.innerHTML = `
-    <div class="deck__panel">
-      <div class="deck__h">Control Deck</div>
-      <div class="deck__row"><div class="deck__lbl">Accent</div>
-        <div class="deck__sw" id="d-acc">
-          <button data-k="amber"  style="background:#F5B301"></button>
-          <button data-k="cyan"   style="background:#27E1C1"></button>
-          <button data-k="fusion" style="background:linear-gradient(135deg,#FFCB45,#27E1C1)"></button>
-        </div>
-      </div>
-      <div class="deck__row"><div class="deck__lbl">Motion</div>
-        <div class="deck__seg" id="d-mot">
-          <button data-k="calm">Calm</button>
-          <button data-k="cruise">Cruise</button>
-          <button data-k="hyper">Hyper</button>
-        </div>
-      </div>
-    </div>
-    <button class="deck__toggle" aria-label="Control deck">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="12" cy="12" r="3.2"/><path d="M19.4 13a7.8 7.8 0 0 0 0-2l1.8-1.4-1.8-3.1-2.2.9a7.6 7.6 0 0 0-1.7-1l-.3-2.4h-3.6l-.3 2.4a7.6 7.6 0 0 0-1.7 1l-2.2-.9-1.8 3.1L4.6 11a7.8 7.8 0 0 0 0 2l-1.8 1.4 1.8 3.1 2.2-.9a7.6 7.6 0 0 0 1.7 1l.3 2.4h3.6l.3-2.4a7.6 7.6 0 0 0 1.7-1l2.2.9 1.8-3.1z"/></svg>
-    </button>`;
-  document.body.appendChild(deck);
-  deck.querySelector('.deck__toggle').addEventListener('click', ()=> deck.classList.toggle('open'));
-
-  const accBtns = [...deck.querySelectorAll('#d-acc button')];
-  accBtns.forEach(b=> b.addEventListener('click', ()=>{
-    accBtns.forEach(x=>x.classList.toggle('on', x===b)); applyAccent(b.dataset.k);
-  }));
-  accBtns.find(b=>b.dataset.k===prefAccent)?.classList.add('on');
-
-  const motBtns = [...deck.querySelectorAll('#d-mot button')];
-  const MOT = { calm:0.45, cruise:1, hyper:1.65 };
-  motBtns.forEach(b=> b.addEventListener('click', ()=>{
-    motBtns.forEach(x=>x.classList.toggle('on', x===b));
-    if (cosmos) cosmos.setMotion(MOT[b.dataset.k]); localStorage.setItem('cc-motion', b.dataset.k);
-  }));
-  motBtns.find(b=>b.dataset.k===prefMotion)?.classList.add('on');
-
-  // apply persisted prefs
-  applyAccent(prefAccent);
-  if (cosmos) cosmos.setMotion(MOT[prefMotion] ?? 1);
+/* ---------------- THEME DEFAULTS (no UI) ---------------- */
+function applyDefaults(){
+  // fusion accent (bright-gold core + cyan secondary) as default
+  document.documentElement.style.setProperty('--accent', '#FFCB45');
+  document.documentElement.style.setProperty('--accent-2', '#27E1C1');
+  if (cosmos){ cosmos.setAccent('#FFCB45'); cosmos.setMotion(HYPER); }
 }
 
 /* ---------------- INIT ---------------- */
@@ -429,7 +417,7 @@ function init(){
     document.body.classList.add('static-mode');
   } else {
     try {
-      cosmos = createCosmos(document.getElementById('cosmos'), PROJECTS, { density:1, motion:1, chartUrl:'assets/trading-chart.jpg' });
+      cosmos = createCosmos(document.getElementById('cosmos'), PROJECTS, { density: isSmall?0.55:1, motion:HYPER, chartUrl:'assets/trading-chart.jpg', mobile:isSmall });
       window.__cosmos = cosmos;
     } catch(err){
       console.warn('WebGL init failed, falling back to static', err);
@@ -441,7 +429,8 @@ function init(){
   initMenu();
   initCards();
   initPointer();
-  initDeck();
+  initSkillsRail();
+  applyDefaults();
   if (STATIC) heroTyper();
 }
 
@@ -452,4 +441,9 @@ window.addEventListener('DOMContentLoaded', ()=>{
   });
   init();
   if (cosmos) cosmos.start();
+  // pause render when tab hidden (perf / battery)
+  document.addEventListener('visibilitychange', ()=>{
+    if (!cosmos) return;
+    if (document.hidden) cosmos.stop(); else cosmos.start();
+  });
 });
