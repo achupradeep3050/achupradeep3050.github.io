@@ -1,20 +1,20 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
   <defs>
     <radialGradient id="g" cx="50%" cy="42%" r="60%">
-      <stop offset="0%" stop-color="#FFCB45"></stop>
-      <stop offset="55%" stop-color="#F5B301"></stop>
-      <stop offset="100%" stop-color="#F5B301" stop-opacity="0"></stop>
+      <stop offset="0%" stop-color="#7FB8FF"></stop>
+      <stop offset="55%" stop-color="#4D9FFF"></stop>
+      <stop offset="100%" stop-color="#4D9FFF" stop-opacity="0"></stop>
     </radialGradient>
   </defs>
-  <rect width="512" height="512" rx="96" fill="#050A14"></rect>
-  <g fill="none" stroke="#27E1C1" stroke-width="6" opacity="0.5">
+  <rect width="512" height="512" rx="96" fill="#0A0D12"></rect>
+  <g fill="none" stroke="#DCE7F5" stroke-width="6" opacity="0.5">
     <circle cx="256" cy="256" r="150" transform="rotate(20 256 256) scale(1 0.55)" transform-origin="256 256"></circle>
     <circle cx="256" cy="256" r="150" transform="rotate(-35 256 256) scale(1 0.55)" transform-origin="256 256"></circle>
   </g>
-  <g fill="none" stroke="#F5B301" stroke-width="7">
+  <g fill="none" stroke="#4D9FFF" stroke-width="7">
     <polygon points="256,120 372,256 256,392 140,256"></polygon>
     <polygon points="256,160 332,256 256,352 180,256" opacity="0.6"></polygon>
   </g>
   <circle cx="256" cy="256" r="92" fill="url(#g)"></circle>
-  <circle cx="256" cy="256" r="30" fill="#FFE9A8"></circle>
+  <circle cx="256" cy="256" r="30" fill="#EAF4FF"></circle>
 </svg>
