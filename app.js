@@ -664,7 +664,7 @@ function initThemes(){
     const next = (themeIdx + 1) % THEMES.length;
     setTheme(next);
     try { localStorage.setItem('cc-theme-idx', String(next)); } catch(e){}
-  }, 60000);
+  }, 20000); // Auto-rotate theme every 20 seconds
 }
 
 /* ---------------- INIT ---------------- */
