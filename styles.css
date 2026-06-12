@@ -125,7 +125,7 @@ main, .nav, .footer, .modal{ position:relative; z-index:4; }
   background:rgba(var(--bg-rgb),0.72); backdrop-filter:blur(14px);
   border-bottom:1px solid var(--line); padding-top:12px; padding-bottom:12px;
 }
-.nav__brand{ display:flex; align-items:center; gap:12px; margin-right:auto; }
+.nav__brand{ display:flex; align-items:center; gap:12px; margin-right:18px; }
 .nav__mark{
   width:24px; height:24px; border-radius:50%;
   background:radial-gradient(circle at 35% 30%, var(--gold-br), var(--gold) 50%, transparent 72%);
@@ -138,6 +138,10 @@ main, .nav, .footer, .modal{ position:relative; z-index:4; }
 @keyframes spin{ to{ transform:rotate(360deg); } }
 .nav__name{ font-family:var(--display); font-weight:600; letter-spacing:.04em; font-size:1rem; }
 .nav__name em{ font-style:normal; color:var(--accent); margin-left:2px; }
+.nav__role{ display:inline-flex; align-items:center; gap:3px; margin-right:auto;
+  font-family:var(--mono); font-size:.72rem; letter-spacing:.08em; color:var(--ink-soft); white-space:nowrap; }
+.nav__role::before{ content:"//"; color:var(--ink-mute); margin-right:7px; }
+.cursor--nav{ width:7px; height:13px; margin-left:2px; }
 .nav__links{ display:flex; gap:26px; }
 .nav__links a{
   font-family:var(--mono); font-size:.82rem; letter-spacing:.04em;
@@ -225,6 +229,23 @@ main, .nav, .footer, .modal{ position:relative; z-index:4; }
   -webkit-background-clip:text; background-clip:text; color:transparent;
 }
 .name-flying #navName{ opacity:0; }
+/* gesture: brand re-entry when the flying name returns home */
+#navName{ display:inline-block; transform-origin:50% 100%; }
+#navName.returning{ animation:navReturn .9s cubic-bezier(.2,.8,.2,1); }
+@keyframes navReturn{
+  0%{ transform:translateY(-16px) rotateX(70deg) scale(.92); filter:blur(5px); }
+  55%{ transform:translateY(2px) rotateX(-10deg) scale(1.03); filter:blur(0); }
+  100%{ transform:none; filter:none; }
+}
+.nav__brand{ perspective:500px; position:relative; }
+#navName.returning::after{
+  content:""; position:absolute; left:0; right:0; bottom:-4px; height:2px;
+  background:linear-gradient(90deg, transparent, var(--accent), transparent);
+  animation:navSweep .9s ease-out;
+}
+@keyframes navSweep{ 0%{ transform:scaleX(0); opacity:1; } 70%{ transform:scaleX(1); opacity:.9; } 100%{ transform:scaleX(1); opacity:0; } }
+.nav__brand:has(#navName.returning) .nav__mark{ animation:markPulse .9s ease-out; }
+@keyframes markPulse{ 0%{ box-shadow:0 0 0 0 rgba(var(--accent-rgb),0.7); } 100%{ box-shadow:0 0 0 18px rgba(var(--accent-rgb),0); } }
 .name-dock{ width:100%; margin-top:20px; }
 
 .hero__role{
@@ -570,6 +591,7 @@ main, .nav, .footer, .modal{ position:relative; z-index:4; }
   .h2{ font-size:clamp(1.85rem,7.5vw,2.4rem); }
   .nav{ padding:14px 18px; }
   .nav__links, .nav__cta{ display:none; }
+  .nav__role{ display:none; }
   .nav__menu{ display:flex; }
   .nav.open .nav__links{ display:flex; position:absolute; top:100%; right:14px; flex-direction:column; gap:16px; background:rgba(var(--bg-rgb),0.96); border:1px solid var(--line); padding:22px 28px; border-radius:14px; backdrop-filter:blur(14px); }
   .nav.open .nav__links a{ font-size:1rem; }

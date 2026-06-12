@@ -172,6 +172,29 @@ function runBoot(done){
   step();
 }
 
+/* ---------------- NAV ROLE TYPEWRITER ---------------- */
+function navTyper(){
+  const el = document.getElementById('navRole');
+  if (!el || el.dataset.on) return;
+  el.dataset.on = '1';
+  const words = [ROLES[1], ROLES[2], ROLES[0]];   // lead with AI-Agent Developer
+  if (STATIC){ el.textContent = words[0]; return; }
+  let r = 0, ch = 0, deleting = false;
+  function tick(){
+    const word = words[r];
+    el.textContent = word.slice(0, ch);
+    if (!deleting){
+      ch++;
+      if (ch > word.length){ deleting = true; return setTimeout(tick, 2100); }
+    } else {
+      ch--;
+      if (ch < 0){ deleting = false; ch = 0; r = (r+1)%words.length; return setTimeout(tick, 380); }
+    }
+    setTimeout(tick, deleting ? 32 : 62);
+  }
+  tick();
+}
+
 /* ---------------- HERO TYPEWRITER ---------------- */
 function heroTyper(){
   const el = document.getElementById('role-type');
@@ -513,7 +536,7 @@ function initNameFlight(){
   const smooth = t=>t*t*(3-2*t);
   const R = el=>{ const r = el.getBoundingClientRect(); return { x:r.left, y:r.top, w:r.width }; };
   const cur = { x:0, y:0, s:1, rx:0, rz:0, b:0, nav:0 };
-  let primed = false, lastPP = -1;
+  let primed = false, lastPP = -1, lastNavT = -1;
 
   function loop(){
     const vh = window.innerHeight;
@@ -549,7 +572,17 @@ function initNameFlight(){
     fly.style.visibility = (cur.y < -baseH*cur.s - 120 || cur.y > vh + 240) ? 'hidden' : 'visible';
     const dockY = (p2 > 0) ? to.y : dock.getBoundingClientRect().top;
     const navTarget = (dockY < -20) ? 1 : 0;                            // name returns home past About
-    cur.nav += (navTarget - cur.nav) * 0.08;
+    if (navTarget !== lastNavT){
+      lastNavT = navTarget;
+      if (navTarget === 1){                                              // gesture: name lands back in the header
+        navSlot.classList.remove('returning');
+        void navSlot.offsetWidth;                                        // restart animation
+        navSlot.classList.add('returning');
+      } else {
+        navSlot.classList.remove('returning');
+      }
+    }
+    cur.nav += (navTarget - cur.nav) * 0.10;
     navSlot.style.opacity = (cur.nav < 0.005) ? '0' : (cur.nav > 0.995 ? '1' : cur.nav.toFixed(3));
 
     // --- scroll-driven portrait effects (reversible) ---
@@ -664,7 +697,7 @@ function initThemes(){
     const next = (themeIdx + 1) % THEMES.length;
     setTheme(next);
     try { localStorage.setItem('cc-theme-idx', String(next)); } catch(e){}
-  }, 20000); // Auto-rotate theme every 20 seconds
+  }, 15000);
 }
 
 /* ---------------- INIT ---------------- */
@@ -692,13 +725,14 @@ function init(){
   initNameFlight();
   initThemes();
   if (cosmos) cosmos.setMotion(HYPER);
-  if (STATIC) heroTyper();
+  if (STATIC){ heroTyper(); navTyper(); }
 }
 
 window.addEventListener('DOMContentLoaded', ()=>{
   runBoot(()=>{
     if (cosmos){ cosmos.start(); cosmos.flyTo('hero'); }
     heroTyper();
+    navTyper();
   });
   init();
   if (cosmos) cosmos.start();
