@@ -9,7 +9,7 @@ import { RenderPass } from 'three/addons/postprocessing/RenderPass.js';
 import { UnrealBloomPass } from 'three/addons/postprocessing/UnrealBloomPass.js';
 import { OutputPass } from 'three/addons/postprocessing/OutputPass.js';
 
-const GOLD = 0x4D9FFF, GOLD_BR = 0x7FB8FF, CYAN = 0xDCE7F5;
+const GOLD = 0xF5B301, GOLD_BR = 0xFFCB45, CYAN = 0x27E1C1;
 const lerp = (a, b, t) => a + (b - a) * t;
 
 // camera keyframes per section ---------------------------------
@@ -36,7 +36,7 @@ export function createCosmos(canvas, projects, opts = {}) {
   renderer.toneMappingExposure = 1.02;
 
   const scene = new THREE.Scene();
-  scene.fog = new THREE.FogExp2(0x0A0D12, 0.034);
+  scene.fog = new THREE.FogExp2(0x050A14, 0.034);
 
   const camera = new THREE.PerspectiveCamera(52, window.innerWidth/window.innerHeight, 0.1, 200);
   camera.fov = (window.innerWidth < 760 || window.innerHeight > window.innerWidth) ? 64 : 52;
@@ -61,16 +61,6 @@ export function createCosmos(canvas, projects, opts = {}) {
   const dustGold = makeStars(Math.floor(420*density), 34, 0.10, GOLD_BR, 0.55); scene.add(dustGold);
   const dustCyan = makeStars(Math.floor(360*density), 30, 0.09, CYAN, 0.5); scene.add(dustCyan);
 
-  // ---------- theme registries ----------
-  // toneMats: materials recolored on theme change (a=accent, abr=accent-bright, b=secondary, star=starfield)
-  const toneMats = [
-    { m:stars.material,    prop:'color', tone:'star' },
-    { m:dustGold.material, prop:'color', tone:'abr'  },
-    { m:dustCyan.material, prop:'color', tone:'b'    },
-  ];
-  // addMats: additive-blended materials that swap to normal blending on light themes
-  const addMats = [stars.material, dustGold.material, dustCyan.material];
-
   // ---------- the CORE ----------
   const core = new THREE.Group(); scene.add(core);
   const wire = new THREE.Mesh(
@@ -80,7 +70,7 @@ export function createCosmos(canvas, projects, opts = {}) {
   core.add(wire);
   const shell = new THREE.Mesh(
     new THREE.IcosahedronGeometry(1.55, 1),
-    new THREE.MeshStandardMaterial({ color:0x0d141f, emissive:GOLD, emissiveIntensity:0.34, metalness:0.6, roughness:0.34, flatShading:true, transparent:true, opacity:0.92 })
+    new THREE.MeshStandardMaterial({ color:0x0a1326, emissive:GOLD, emissiveIntensity:0.34, metalness:0.6, roughness:0.34, flatShading:true, transparent:true, opacity:0.92 })
   );
   core.add(shell);
   const innerGlow = new THREE.Mesh(
@@ -91,18 +81,15 @@ export function createCosmos(canvas, projects, opts = {}) {
   // halo sprite
   const halo = new THREE.Sprite(new THREE.SpriteMaterial({ map:radialTex(GOLD_BR), transparent:true, opacity:0.16, blending:THREE.AdditiveBlending, depthWrite:false }));
   halo.scale.set(4.4,4.4,1); core.add(halo);
-  addMats.push(halo.material);
 
   // ---------- orbit rings (skills) ----------
   const rings = new THREE.Group(); scene.add(rings);
   const ringDefs = [ [3.1, 0.018, CYAN, 0.38], [3.9, 0.016, GOLD, 0.3], [4.7, 0.014, CYAN, 0.24] ];
   ringDefs.forEach(([r, tube, col, op], i)=>{
-    const tone = (i === 1) ? 'a' : 'b';
     const ring = new THREE.Mesh(new THREE.TorusGeometry(r, tube, 8, 140), new THREE.MeshBasicMaterial({ color:col, transparent:true, opacity:op }));
     ring.rotation.x = 1.2 + i*0.35; ring.rotation.y = i*0.5;
     ring.userData.spin = 0.06 - i*0.015;
     rings.add(ring);
-    toneMats.push({ m:ring.material, prop:'color', tone });
     // node beads on ring
     const beads = 5 + i;
     for (let b=0;b<beads;b++){
@@ -110,7 +97,6 @@ export function createCosmos(canvas, projects, opts = {}) {
       const node = new THREE.Mesh(new THREE.SphereGeometry(0.07,12,12), new THREE.MeshBasicMaterial({ color:col }));
       const v = new THREE.Vector3(Math.cos(a)*r, Math.sin(a)*r, 0).applyEuler(ring.rotation);
       node.position.copy(v); rings.add(node);
-      toneMats.push({ m:node.material, prop:'color', tone });
     }
   });
 
@@ -123,12 +109,11 @@ export function createCosmos(canvas, projects, opts = {}) {
     const col = new THREE.Color(p.color);
     const body = new THREE.Mesh(
       new THREE.IcosahedronGeometry(0.62, 4),
-      new THREE.MeshStandardMaterial({ color:0x0b1018, emissive:col, emissiveIntensity:0.65, metalness:0.7, roughness:0.35, flatShading:false })
+      new THREE.MeshStandardMaterial({ color:0x070c18, emissive:col, emissiveIntensity:0.65, metalness:0.7, roughness:0.35, flatShading:false })
     );
     const wireO = new THREE.Mesh(new THREE.IcosahedronGeometry(0.66, 1), new THREE.MeshBasicMaterial({ color:col, wireframe:true, transparent:true, opacity:0.4 }));
     const g2 = new THREE.Sprite(new THREE.SpriteMaterial({ map:radialTex(p.color), transparent:true, opacity:0.5, blending:THREE.AdditiveBlending, depthWrite:false }));
     g2.scale.set(2.6,2.6,1);
-    addMats.push(g2.material);
     grp.add(body, wireO, g2);
     if (i % 2 === 0){
       const ring = new THREE.Mesh(new THREE.TorusGeometry(0.95, 0.01, 8, 80), new THREE.MeshBasicMaterial({ color:col, transparent:true, opacity:0.5 }));
@@ -149,11 +134,11 @@ export function createCosmos(canvas, projects, opts = {}) {
       tex.colorSpace = THREE.SRGBColorSpace;
       const plane = new THREE.Mesh(
         new THREE.PlaneGeometry(13, 7.3),
-        new THREE.MeshBasicMaterial({ map:tex, color:0x9FB8D6, transparent:true, opacity:0.0, depthWrite:false })
+        new THREE.MeshBasicMaterial({ map:tex, transparent:true, opacity:0.0, depthWrite:false })
       );
       plane.position.set(0, 0.6, -1.6); trading.add(plane); chartPlane = plane;
       // subtle reflected echo
-      const echo = new THREE.Mesh(new THREE.PlaneGeometry(13,7.3), new THREE.MeshBasicMaterial({ map:tex, color:0x7FA2C8, transparent:true, opacity:0.0, depthWrite:false, blending:THREE.AdditiveBlending }));
+      const echo = new THREE.Mesh(new THREE.PlaneGeometry(13,7.3), new THREE.MeshBasicMaterial({ map:tex, transparent:true, opacity:0.0, depthWrite:false, blending:THREE.AdditiveBlending }));
       echo.position.set(0, 0.6, -2.4); echo.scale.set(1.15,1.15,1); trading.add(echo); chartPlane.userData.echo = echo;
     });
   }
@@ -165,14 +150,12 @@ export function createCosmos(canvas, projects, opts = {}) {
     const x = (i - 13) * 0.42;
     const yBase = prev + (Math.random()-0.5)*0.5;
     const col = up ? CYAN : GOLD;
-    const candle = new THREE.Mesh(new THREE.BoxGeometry(0.18, h, 0.18), new THREE.MeshStandardMaterial({ color:0x0d141f, emissive:col, emissiveIntensity:0, metalness:0.5, roughness:0.4 }));
+    const candle = new THREE.Mesh(new THREE.BoxGeometry(0.18, h, 0.18), new THREE.MeshStandardMaterial({ color:0x0a1326, emissive:col, emissiveIntensity:0, metalness:0.5, roughness:0.4 }));
     candle.position.set(x, yBase + h/2, 0);
     const wickH = h + 0.3 + Math.random()*0.3;
     const wick = new THREE.Mesh(new THREE.BoxGeometry(0.02, wickH, 0.02), new THREE.MeshBasicMaterial({ color:col, transparent:true, opacity:0 }));
     wick.position.set(x, yBase + h/2, 0);
     trading.add(candle, wick);
-    toneMats.push({ m:candle.material, prop:'emissive', tone: up ? 'b' : 'a' });
-    toneMats.push({ m:wick.material, prop:'color', tone: up ? 'b' : 'a' });
     candleData.push({ candle, wick, phase:Math.random()*Math.PI*2, baseY:yBase + h/2, glow:0.28 + Math.random()*0.1 });
     prev = yBase;
   }
@@ -181,19 +164,12 @@ export function createCosmos(canvas, projects, opts = {}) {
   [[0.9, CYAN],[ -1.1, GOLD]].forEach(([y,c])=>{
     const band = new THREE.Mesh(new THREE.PlaneGeometry(11, 0.5), new THREE.MeshBasicMaterial({ color:c, transparent:true, opacity:0, side:THREE.DoubleSide }));
     band.position.set(0, y, -0.2); trading.add(band); fvgBands.push(band);
-    toneMats.push({ m:band.material, prop:'color', tone: c===CYAN ? 'b' : 'a' });
   });
   // EMA line
   const emaPts = [];
   for (let i=0;i<=52;i++){ const x=(i/2-13)*0.42; emaPts.push(new THREE.Vector3(x, Math.sin(i*0.28)*0.7 + Math.cos(i*0.11)*0.3, 0.15)); }
   const ema = new THREE.Mesh(new THREE.TubeGeometry(new THREE.CatmullRomCurve3(emaPts), 120, 0.018, 6, false), new THREE.MeshBasicMaterial({ color:GOLD_BR, transparent:true, opacity:0 }));
   trading.add(ema);
-  toneMats.push({ m:ema.material, prop:'color', tone:'abr' });
-
-  // ---------- theme cross-fade state ----------
-  const themeCur = { acc:new THREE.Color(GOLD), accBr:new THREE.Color(GOLD_BR), acc2:new THREE.Color(CYAN), star:new THREE.Color(0xbfd0ff), fog:new THREE.Color(0x0A0D12), bloom:0.42 };
-  const themeTgt = { acc:themeCur.acc.clone(), accBr:themeCur.accBr.clone(), acc2:themeCur.acc2.clone(), star:themeCur.star.clone(), fog:themeCur.fog.clone(), bloom:0.42 };
-  let themeLight = false;
 
   // ---------- bloom ----------
   const composer = new EffectComposer(renderer);
@@ -272,23 +248,6 @@ export function createCosmos(canvas, projects, opts = {}) {
     planets.visible = state.vis.planets > 0.02;
     trading.visible = state.vis.trading > 0.02;
 
-    // theme cross-fade (slow, continuous, scroll-independent)
-    const tk = 0.028;
-    themeCur.acc.lerp(themeTgt.acc, tk); themeCur.accBr.lerp(themeTgt.accBr, tk);
-    themeCur.acc2.lerp(themeTgt.acc2, tk); themeCur.star.lerp(themeTgt.star, tk);
-    themeCur.fog.lerp(themeTgt.fog, tk);
-    themeCur.bloom += (themeTgt.bloom - themeCur.bloom) * tk;
-    bloom.strength = themeCur.bloom;
-    scene.fog.color.copy(themeCur.fog);
-    wire.material.color.copy(themeCur.acc);
-    shell.material.emissive.copy(themeCur.acc);
-    innerGlow.material.color.copy(themeCur.accBr);
-    key.color.copy(themeCur.acc); fill.color.copy(themeCur.acc2);
-    for (const t of toneMats){
-      const c = t.tone==='a' ? themeCur.acc : t.tone==='abr' ? themeCur.accBr : t.tone==='b' ? themeCur.acc2 : themeCur.star;
-      (t.prop==='emissive' ? t.m.emissive : t.m.color).copy(c);
-    }
-
     // motion
     core.rotation.y += 0.0023*m; core.rotation.x = Math.sin(t*0.2)*0.12;
     wire.rotation.y -= 0.0014*m; wire.rotation.z += 0.0006*m;
@@ -364,18 +323,8 @@ export function createCosmos(canvas, projects, opts = {}) {
     setMotion(v){ state.motion=v; },
     setAccent(hex){
       const c = new THREE.Color(hex);
-      themeTgt.acc.copy(c); themeTgt.accBr.copy(c);
-      halo.material.map = radialTex(hex); halo.material.needsUpdate = true;
-    },
-    setThemeTarget(th){
-      themeTgt.acc.set(th.accent); themeTgt.accBr.set(th.accentBr);
-      themeTgt.acc2.set(th.accent2); themeTgt.star.set(th.stars);
-      themeTgt.fog.set(th.fog); themeTgt.bloom = th.bloom ?? 0.42;
-      halo.material.map = radialTex(th.accentBr); halo.material.needsUpdate = true;
-      if (th.light !== themeLight){
-        themeLight = th.light;
-        addMats.forEach(mm=>{ mm.blending = themeLight ? THREE.NormalBlending : THREE.AdditiveBlending; mm.needsUpdate = true; });
-      }
+      wire.material.color.set(c); shell.material.emissive.set(c); innerGlow.material.color.set(c);
+      key.color.set(c); halo.material.map = radialTex(hex); halo.material.needsUpdate=true;
     },
   };
 }

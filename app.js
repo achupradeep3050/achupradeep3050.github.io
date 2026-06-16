@@ -7,14 +7,14 @@ import { createCosmos } from './cosmos.js';
 const ROLES = ['Linux DevOps Engineer', 'AI-Agent Developer', 'Algorithmic-Trading Systems Builder'];
 
 const SKILLS = [
-  { t:'Linux & Systems',  c:'#7FB8FF', items:['RHEL','CentOS','Fedora','Kali','systemd','SELinux','LVM','kernel tuning'] },
-  { t:'Containers & CI/CD',c:'#DCE7F5', items:['Docker','Jenkins','Git','blue-green deploy'] },
-  { t:'Cloud',            c:'#7FB8FF', items:['AWS EC2','S3','IAM'] },
-  { t:'Observability',    c:'#DCE7F5', items:['Prometheus','Grafana','Loki','Zabbix','alerting','incident response'] },
-  { t:'Security / SOC',   c:'#4D9FFF', items:['Wazuh SIEM','OpenVAS / GVM','ClamAV','ModSecurity','fail2ban','RBAC'] },
-  { t:'AI / Agents',      c:'#DCE7F5', items:['Python','CrewAI','tool-use','Claude Code','Cursor','Copilot'] },
-  { t:'App / Data',       c:'#7FB8FF', items:['FastAPI','React','MySQL / MariaDB','Redis'] },
-  { t:'Trading Tech',     c:'#4D9FFF', items:['Pine Script v5','TradingView','SMC / ICT','FVG','EMA / SMA','OANDA','MetaTrader 5'] },
+  { t:'Linux & Systems',  c:'#FFCB45', items:['RHEL','CentOS','Fedora','Kali','systemd','SELinux','LVM','kernel tuning'] },
+  { t:'Containers & CI/CD',c:'#27E1C1', items:['Docker','Jenkins','Git','blue-green deploy'] },
+  { t:'Cloud',            c:'#FFCB45', items:['AWS EC2','S3','IAM'] },
+  { t:'Observability',    c:'#27E1C1', items:['Prometheus','Grafana','Loki','Zabbix','alerting','incident response'] },
+  { t:'Security / SOC',   c:'#F5B301', items:['Wazuh SIEM','OpenVAS / GVM','ClamAV','ModSecurity','fail2ban','RBAC'] },
+  { t:'AI / Agents',      c:'#27E1C1', items:['Python','CrewAI','tool-use','Claude Code','Cursor','Copilot'] },
+  { t:'App / Data',       c:'#FFCB45', items:['FastAPI','React','MySQL / MariaDB','Redis'] },
+  { t:'Trading Tech',     c:'#F5B301', items:['Pine Script v5','TradingView','SMC / ICT','FVG','EMA / SMA','OANDA','MetaTrader 5'] },
 ];
 
 const PROJECT_ICONS = {
@@ -27,22 +27,22 @@ const PROJECT_ICONS = {
 };
 
 const PROJECTS = [
-  { name:'Hermes-USB-Portable', kind:'PORTABLE AGENT', icon:'usb', color:'#6FB5FF', cover:'hermes', repo:'Hermes-USB-Portable',
+  { name:'Hermes-USB-Portable', kind:'PORTABLE AGENT', icon:'usb', color:'#27E1C1', repo:'Hermes-USB-Portable',
     desc:'A portable AI agent that runs from a USB stick on Windows, macOS and Linux with zero host installs — multi-provider model switching plus a guardrailed CLI (dry-run + audit).',
     tags:['Python','Multi-provider','Guardrailed CLI','Cross-platform'] },
-  { name:'jobmind-agent', kind:'MULTI-AGENT', icon:'agent', color:'#A9C9EE', cover:'jobmind', repo:'jobmind-agent',
+  { name:'jobmind-agent', kind:'MULTI-AGENT', icon:'agent', color:'#3BE0C8', repo:'jobmind-agent',
     desc:'A CrewAI multi-agent job-application pipeline — scrape → score → tailor → generate — wrapped in a Streamlit UI.',
     tags:['CrewAI','Multi-agent','Streamlit','Python'] },
-  { name:'VA-Opensource-Audit', kind:'SOC / SECURITY', icon:'shield', color:'#7DD3FF', cover:'vaaudit', repo:'VA-Opensource-Audit',
+  { name:'VA-Opensource-Audit', kind:'SOC / SECURITY', icon:'shield', color:'#5BE8B0', repo:'VA-Opensource-Audit',
     desc:'A self-hosted SOC dashboard for agentless vulnerability auditing (OpenVAS / GVM + ClamAV) across Linux servers, with JWT + TOTP access control.',
     tags:['OpenVAS / GVM','ClamAV','JWT + TOTP','SOC'] },
-  { name:'xauusd-fvg-algo', kind:'GOLD TRADING', icon:'candle', color:'#CFE3FA', cover:'xauusd', repo:'xauusd-fvg-algo',
+  { name:'xauusd-fvg-algo', kind:'GOLD TRADING', icon:'candle', color:'#FFCB45', repo:'xauusd-fvg-algo',
     desc:'A 24/7 multi-broker automated gold (XAUUSD) trading system — FastAPI + React dashboard with Telegram alerts.',
     tags:['FastAPI','React','FVG','Telegram','Multi-broker'] },
-  { name:'sma_cross_scalp_bot', kind:'FOREX SCALPER', icon:'bolt', color:'#8FA3BD', cover:'sma', repo:'sma_cross_scalp_bot',
+  { name:'sma_cross_scalp_bot', kind:'FOREX SCALPER', icon:'bolt', color:'#F5A201', repo:'sma_cross_scalp_bot',
     desc:'A 24/7 forex / CFD scalping bot — FastAPI + React + MariaDB with automated risk controls.',
     tags:['FastAPI','React','MariaDB','Risk controls'] },
-  { name:'OBStat', kind:'MARKET ANALYTICS', icon:'chart', color:'#BFD9F2', cover:'obstat', repo:'OBStat',
+  { name:'OBStat', kind:'MARKET ANALYTICS', icon:'chart', color:'#9AE6FF', repo:'OBStat',
     desc:'Order-book & market-microstructure analytics for algorithmic-trading research.',
     tags:['Order book','Microstructure','Analytics','Research'] },
 ];
@@ -57,7 +57,7 @@ const EXPERIENCE = [
 const CERTS = [
   { abbr:'RHCSA', name:'Red Hat Certified System Administrator', by:'Red Hat', logo:'redhat', accent:'#EE0000' },
   { abbr:'RHCE',  name:'Red Hat Certified Engineer', by:'Red Hat', logo:'redhat', accent:'#EE0000' },
-  { abbr:'CEH',   name:'Certified Ethical Hacker', by:'EC-Council', logo:'shield', accent:'#DCE7F5' },
+  { abbr:'CEH',   name:'Certified Ethical Hacker', by:'EC-Council', logo:'shield', accent:'#27E1C1' },
 ];
 
 const ICONS = {
@@ -94,19 +94,15 @@ function buildDOM(){
   const pg = document.getElementById('projgrid');
   pg.innerHTML = PROJECTS.map((p,i)=>`
     <article class="proj-card reveal" data-i="${i}" style="--pc:${p.color}">
-      <div class="proj-card__media">
-        <img src="assets/cover-${p.cover}.jpg" alt="${p.name} cover" loading="lazy" />
-        <span class="proj-card__scan"></span>
-        <span class="proj-card__cat">${p.kind}</span>
+      <div class="proj-card__head">
         <div class="proj-card__icon">${PROJECT_ICONS[p.icon]||''}</div>
-      </div>
-      <div class="proj-card__body">
         <span class="proj-card__idx">0${i+1}</span>
-        <h3>${p.name}</h3>
-        <p>${p.desc}</p>
-        <ul class="tags">${p.tags.slice(0,4).map(t=>`<li>${t}</li>`).join('')}</ul>
-        <span class="proj-card__open">open module <i>→</i></span>
       </div>
+      <span class="proj-card__cat">${p.kind}</span>
+      <h3>${p.name}</h3>
+      <p>${p.desc}</p>
+      <ul class="tags">${p.tags.slice(0,4).map(t=>`<li>${t}</li>`).join('')}</ul>
+      <span class="proj-card__open">open module <i>→</i></span>
     </article>`).join('');
 
   // timeline
@@ -121,7 +117,7 @@ function buildDOM(){
   document.getElementById('badges').innerHTML = CERTS.map(c=>{
     const mark = c.logo==='redhat'
       ? `<div class="badge__mark badge__mark--rh"><img src="assets/redhat.webp" alt="Red Hat" /><span class="badge__halo"></span></div>`
-      : `<div class="badge__mark badge__mark--shield"><svg viewBox="0 0 48 54" fill="none"><path d="M24 2 44 10v18c0 13-9 20-20 24C13 48 4 41 4 28V10z" stroke="#DCE7F5" stroke-width="2"/><path d="M16 27l6 6 11-12" stroke="#DCE7F5" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="badge__halo badge__halo--cy"></span></div>`;
+      : `<div class="badge__mark badge__mark--shield"><svg viewBox="0 0 48 54" fill="none"><path d="M24 2 44 10v18c0 13-9 20-20 24C13 48 4 41 4 28V10z" stroke="#27E1C1" stroke-width="2"/><path d="M16 27l6 6 11-12" stroke="#27E1C1" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="badge__halo badge__halo--cy"></span></div>`;
     return `<div class="badge reveal" style="--bc:${c.accent}">${mark}
       <div class="badge__meta"><span class="badge__abbr">${c.abbr}</span><h3>${c.name}</h3><p>${c.by}</p></div></div>`;
   }).join('');
@@ -170,29 +166,6 @@ function runBoot(done){
   }
   document.getElementById('bootskip').addEventListener('click', finish);
   step();
-}
-
-/* ---------------- NAV ROLE TYPEWRITER ---------------- */
-function navTyper(){
-  const el = document.getElementById('navRole');
-  if (!el || el.dataset.on) return;
-  el.dataset.on = '1';
-  const words = [ROLES[1], ROLES[2], ROLES[0]];   // lead with AI-Agent Developer
-  if (STATIC){ el.textContent = words[0]; return; }
-  let r = 0, ch = 0, deleting = false;
-  function tick(){
-    const word = words[r];
-    el.textContent = word.slice(0, ch);
-    if (!deleting){
-      ch++;
-      if (ch > word.length){ deleting = true; return setTimeout(tick, 2100); }
-    } else {
-      ch--;
-      if (ch < 0){ deleting = false; ch = 0; r = (r+1)%words.length; return setTimeout(tick, 380); }
-    }
-    setTimeout(tick, deleting ? 32 : 62);
-  }
-  tick();
 }
 
 /* ---------------- HERO TYPEWRITER ---------------- */
@@ -257,7 +230,6 @@ function animCount(el){
 }
 
 /* ---------------- MODAL ---------------- */
-let modalOpen = false;
 function openModal(i){
   const p = PROJECTS[i]; if(!p) return;
   document.getElementById('modal-idx').textContent = `MODULE 0${i+1} · ${p.kind}`;
@@ -267,24 +239,15 @@ function openModal(i){
   const gh = document.getElementById('modal-gh');
   gh.href = `https://github.com/achupradeep3050/${p.repo}`;
   document.getElementById('modal-media').innerHTML =
-    `<img class="modal-cover" src="assets/cover-${p.cover}.jpg" alt="${p.name} cover" />
-     <span class="modal-cover__scan"></span>
+    `<div class="ph-frame"></div>
      <div class="modal-orb" style="--pc:${p.color}"><span class="modal-orb__glow"></span><span class="modal-orb__icon">${PROJECT_ICONS[p.icon]||''}</span></div>
-     <div class="viz-tag" style="position:absolute;bottom:14px;left:16px;z-index:3">module preview — drop a real demo capture (MP4 / WebM)</div>`;
+     <div class="viz-tag" style="position:absolute;top:14px;left:16px">demo capture — drop MP4 / WebM</div>`;
   const m = document.getElementById('modal');
   m.classList.add('open'); m.setAttribute('aria-hidden','false');
-  document.body.classList.add('modal-lock');
-  modalOpen = true;
-  if (cosmos) cosmos.setHover(-1);
-  document.getElementById('cosmos')?.classList.remove('interactive');
 }
 function closeModal(){
   const m = document.getElementById('modal');
   m.classList.remove('open'); m.setAttribute('aria-hidden','true');
-  document.body.classList.remove('modal-lock');
-  modalOpen = false;
-  // restore canvas interactivity if still on projects
-  document.getElementById('cosmos')?.classList.toggle('interactive', document.querySelector('.nav__links a.active')?.dataset.fly==='projects');
 }
 
 /* ---------------- SCROLL / NAV / OBSERVERS ---------------- */
@@ -296,7 +259,7 @@ function initScroll(){
   // smooth scroll (Lenis) unless static
   let lenis = null;
   if (!STATIC && window.Lenis){
-    lenis = new Lenis({ duration:1.45, smoothWheel:true, easing: t => 1 - Math.pow(1 - t, 4) });
+    lenis = new Lenis({ duration:1.2, smoothWheel:true });
     window.__lenis = lenis;
     function raf(t){ lenis.raf(t); requestAnimationFrame(raf); }
     requestAnimationFrame(raf);
@@ -334,18 +297,14 @@ function initScroll(){
   if (lenis) lenis.on('scroll', updateActive);
   updateActive();
 
-  // reveal + counters + timeline (staggered for smoother rhythm)
+  // reveal + counters + timeline
   const revIO = new IntersectionObserver(entries=>{
     entries.forEach(en=>{
       if (en.isIntersecting){
-        const el = en.target;
-        const sib = el.parentElement ? Array.prototype.indexOf.call(el.parentElement.children, el) : 0;
-        el.style.transitionDelay = Math.min(Math.max(sib,0)*70, 420) + 'ms';
-        el.classList.add('in');
-        el.addEventListener('transitionend', ()=>{ el.style.transitionDelay=''; }, { once:true });
-        el.querySelectorAll?.('.count').forEach(animCount);
-        if (el.classList.contains('count')) animCount(el);
-        revIO.unobserve(el);
+        en.target.classList.add('in');
+        en.target.querySelectorAll?.('.count').forEach(animCount);
+        if (en.target.classList.contains('count')) animCount(en.target);
+        revIO.unobserve(en.target);
       }
     });
   }, { threshold:0.25, rootMargin:'0px 0px -8% 0px' });
@@ -366,34 +325,25 @@ function initSkillsRail(){
   const bar = document.getElementById('skillbar');
   if (!section || !rail) return;
 
-  let enabled = !STATIC;
-  let railDist = 0, secTop = 0, secTotal = 1;          // cached layout (no per-scroll reflow)
-  let lastX = null, lastBar = null;
-  function remeasure(){
-    railDist = Math.max(0, rail.scrollWidth - rail.clientWidth);
-    secTop = section.offsetTop;
-    secTotal = Math.max(1, section.offsetHeight - window.innerHeight);
-  }
+  let enabled = window.innerWidth > 760 && !STATIC;
+  function dist(){ return Math.max(0, rail.scrollWidth - rail.parentElement.clientWidth + 8); }
   function onScroll(){
     if (!enabled) return;
-    const p = Math.min(1, Math.max(0, (window.scrollY - secTop) / secTotal));
-    const x = (-p * railDist).toFixed(1);
-    if (x !== lastX){ rail.style.transform = `translate3d(${x}px,0,0)`; lastX = x; }
-    if (bar){ const w = (p*100).toFixed(1) + '%'; if (w !== lastBar){ bar.style.width = w; lastBar = w; } }
+    const rect = section.getBoundingClientRect();
+    const total = section.offsetHeight - window.innerHeight;
+    const p = total > 0 ? Math.min(1, Math.max(0, -rect.top / total)) : 0;
+    rail.style.transform = `translate3d(${(-p*dist()).toFixed(1)}px,0,0)`;
+    if (bar) bar.style.width = (p*100).toFixed(1) + '%';
   }
   function syncMode(){
-    enabled = !STATIC;
+    enabled = window.innerWidth > 760 && !STATIC;
     rail.classList.toggle('rail-on', enabled);
-    remeasure();
-    if (!enabled){ rail.style.transform = ''; lastX = null; }
+    if (!enabled){ rail.style.transform = ''; }
     else onScroll();
   }
   window.addEventListener('scroll', onScroll, { passive:true });
   if (window.__lenis) window.__lenis.on('scroll', onScroll);
   window.addEventListener('resize', syncMode);
-  // re-measure once everything (fonts/images) has settled
-  window.addEventListener('load', remeasure);
-  setTimeout(remeasure, 1200);
   syncMode();
 }
 
@@ -413,7 +363,7 @@ function initPointer(){
   window.addEventListener('pointermove', e=>{
     light.style.transform = `translate(${e.clientX}px, ${e.clientY}px)`;
     light.style.opacity = '1';
-    if (cosmos && !modalOpen){
+    if (cosmos){
       cosmos.setMouse((e.clientX/window.innerWidth)*2-1, -((e.clientY/window.innerHeight)*2-1));
       const hit = cosmos.pick(e.clientX, e.clientY);
       cosmos.setHover(hit);
@@ -422,12 +372,10 @@ function initPointer(){
         tip.textContent = PROJECTS[hit].name;
         tip.style.left = e.clientX+'px'; tip.style.top = e.clientY+'px'; tip.style.opacity='1';
       } else { document.body.style.cursor=''; tip.style.opacity='0'; }
-    } else if (modalOpen){ tip.style.opacity='0'; document.body.style.cursor=''; }
+    }
   }, { passive:true });
 
   window.addEventListener('click', e=>{
-    // never let a 3D pick fire while the modal is open or when clicking UI chrome
-    if (modalOpen || e.target.closest('.modal, .nav, .proj-card, a, button')) return;
     if (cosmos){ const hit = cosmos.pick(e.clientX, e.clientY); if (hit>=0){ openModal(hit); } }
   });
 
@@ -453,251 +401,12 @@ function initCards(){
   window.addEventListener('keydown', e=>{ if (e.key==='Escape') closeModal(); });
 }
 
-/* ---------------- ANIMATED AI PORTRAIT (scroll-driven) ---------------- */
-let setPortraitFrame = null;
-function initPortrait(){
-  const frame = document.getElementById('pframe'); if (!frame) return;
-  const imgs = [...frame.querySelectorAll('.pframe__img')];
-  const fno = document.getElementById('pfno');
-  const tc = document.getElementById('ptc');
-  let cur = 0, tmr = null;
-  imgs[0].classList.add('active');
-
-  // glitch-cut to a given frame; safe under rapid scroll scrubbing
-  setPortraitFrame = (idx)=>{
-    if (idx === cur || !imgs[idx]) return;
-    if (tmr){
-      clearTimeout(tmr); tmr = null;
-      imgs.forEach((im,k)=>{ if (k!==cur) im.classList.remove('active'); im.classList.remove('in'); });
-      frame.classList.remove('glitching');
-    }
-    cur = idx;
-    const next = imgs[cur];
-    next.classList.add('active','in');
-    frame.classList.add('glitching');
-    if (fno) fno.textContent = `FRM 0${cur+1}/0${imgs.length}`;
-    tmr = setTimeout(()=>{
-      tmr = null;
-      imgs.forEach((im,k)=>{ if (k!==cur) im.classList.remove('active'); });
-      next.classList.remove('in');
-      frame.classList.remove('glitching');
-    }, 640);
-  };
-
-  if (STATIC || imgs.length < 2) return;   // reduced motion: hold first frame
-
-  // running timecode (25fps style)
-  let f = 0;
-  setInterval(()=>{
-    f++;
-    const ff = String(f % 25).padStart(2,'0');
-    const ss = String(Math.floor(f/25) % 60).padStart(2,'0');
-    const mm = String(Math.floor(f/1500) % 60).padStart(2,'0');
-    if (tc) tc.textContent = `00:${mm}:${ss}:${ff}`;
-  }, 40);
-
-  // cinematic 3D tilt
-  frame.addEventListener('pointermove', e=>{
-    const r = frame.getBoundingClientRect();
-    const x = (e.clientX - r.left)/r.width - 0.5;
-    const y = (e.clientY - r.top)/r.height - 0.5;
-    frame.style.transform = `rotateY(${(x*7).toFixed(2)}deg) rotateX(${(-y*7).toFixed(2)}deg)`;
-  });
-  frame.addEventListener('pointerleave', ()=>{ frame.style.transform = ''; });
-}
-
-/* ---------------- SCROLL-SCRUBBED 3D NAME FLIGHT ---------------- */
-function initNameFlight(){
-  const fly = document.getElementById('flyName');
-  const navSlot = document.getElementById('navName');
-  const heroSlot = document.querySelector('#heroNameSlot .slot-ghost');
-  const dock = document.getElementById('nameDock');
-  const about = document.getElementById('about');
-  if (!fly || !navSlot || !heroSlot || !dock || !about) return;
-  if (STATIC) return;                       // reduced motion: static headline
-
-  document.body.classList.add('name-flying');
-  const inner = fly.querySelector('.fly-name__inner');
-  const persp = document.querySelector('.portrait-persp');
-
-  let baseW = 1, baseH = 1;
-  function measure(){
-    fly.style.transform = 'none'; inner.style.transform = 'none';
-    const r = inner.getBoundingClientRect();
-    baseW = r.width || 1; baseH = r.height || 1;
-    // reserve dock height to fit the docked name
-    dock.style.height = Math.ceil(dock.clientWidth / baseW * baseH) + 'px';
-  }
-  measure();
-  if (document.fonts && document.fonts.ready) document.fonts.ready.then(measure);
-  window.addEventListener('resize', measure);
-
-  const clamp = (v,a,b)=>Math.min(b,Math.max(a,v));
-  const smooth = t=>t*t*(3-2*t);
-  const R = el=>{ const r = el.getBoundingClientRect(); return { x:r.left, y:r.top, w:r.width }; };
-  const cur = { x:0, y:0, s:1, rx:0, rz:0, b:0, nav:0 };
-  let primed = false, lastPP = -1, lastNavT = -1;
-
-  function loop(){
-    const vh = window.innerHeight;
-    const aboutTop = about.getBoundingClientRect().top;
-    const p1 = clamp(window.scrollY / (vh*0.45), 0, 1);                 // nav -> hero fall (page pinned)
-    const p2 = clamp((vh*0.60 - aboutTop) / (vh*0.48), 0, 1);           // hero -> dock fall
-
-    let from, to, p, drama;
-    if (p2 > 0){ from = R(heroSlot); to = R(dock); p = p2; drama = 1; }
-    else { from = R(navSlot); to = R(heroSlot); p = p1; drama = 0.55; }
-    const e = smooth(p);
-    const arc = Math.sin(Math.PI * e);
-
-    const sF = from.w / baseW, sT = to.w / baseW;
-    const t = {
-      x: from.x + (to.x - from.x) * e,
-      y: from.y + (to.y - from.y) * e + arc * 26 * drama,               // gravity arc
-      s: sF + (sT - sF) * e,
-      rx: -150 * arc * drama,                                           // 3D tumble
-      rz: -12 * arc * drama,
-      b: 5 * arc * drama,                                               // motion blur
-    };
-
-    if (!primed){ Object.assign(cur, t); primed = true; }
-    const k = 0.16;                                                      // cinematic damping
-    cur.x += (t.x-cur.x)*k; cur.y += (t.y-cur.y)*k; cur.s += (t.s-cur.s)*k;
-    cur.rx += (t.rx-cur.rx)*k; cur.rz += (t.rz-cur.rz)*k; cur.b += (t.b-cur.b)*k;
-
-    fly.style.transform = `translate3d(${cur.x.toFixed(2)}px,${cur.y.toFixed(2)}px,0) scale(${cur.s.toFixed(4)})`;
-    inner.style.transform = `perspective(900px) rotateX(${cur.rx.toFixed(2)}deg) rotate(${cur.rz.toFixed(2)}deg)`;
-    inner.style.filter = cur.b > 0.2 ? `blur(${cur.b.toFixed(2)}px)` : '';
-    fly.style.zIndex = (p2 >= 0.985) ? '5' : '60';                       // docked name slides under nav
-    fly.style.visibility = (cur.y < -baseH*cur.s - 120 || cur.y > vh + 240) ? 'hidden' : 'visible';
-    const dockY = (p2 > 0) ? to.y : dock.getBoundingClientRect().top;
-    const navTarget = (dockY < -20) ? 1 : 0;                            // name returns home past About
-    if (navTarget !== lastNavT){
-      lastNavT = navTarget;
-      if (navTarget === 1){                                              // gesture: name lands back in the header
-        navSlot.classList.remove('returning');
-        void navSlot.offsetWidth;                                        // restart animation
-        navSlot.classList.add('returning');
-      } else {
-        navSlot.classList.remove('returning');
-      }
-    }
-    cur.nav += (navTarget - cur.nav) * 0.10;
-    navSlot.style.opacity = (cur.nav < 0.005) ? '0' : (cur.nav > 0.995 ? '1' : cur.nav.toFixed(3));
-
-    // --- scroll-driven portrait effects (reversible) ---
-    const pp = clamp((vh*0.96 - aboutTop) / (vh*1.0), 0, 1);
-    if (setPortraitFrame && Math.abs(pp - lastPP) > 0.001){
-      lastPP = pp;
-      setPortraitFrame(pp < 0.34 ? 0 : pp < 0.67 ? 1 : 2);
-    }
-    if (persp){
-      const py = ((0.5-pp)*34).toFixed(1);
-      if (py !== loop._lastPy){ persp.style.transform = `translateY(${py}px)`; loop._lastPy = py; }
-    }
-
-    requestAnimationFrame(loop);
-  }
-  requestAnimationFrame(loop);
-}
-
-/* ---------------- THEME ENGINE (auto-rotates every 60s) ---------------- */
-const THEMES = [
-  { name:'Midnight',
-    vars:{ bg:'#0A0D12', bg2:'#0E1218', navy:'#131A24', panel:'rgba(19,26,36,0.55)', panelLine:'rgba(77,159,255,0.16)', line:'rgba(234,240,255,0.08)',
-      gold:'#4D9FFF', goldBr:'#7FB8FF', cyan:'#DCE7F5', ink:'#EAF0FF', inkSoft:'#AAB3C8', inkMute:'#66708A',
-      nameA:'#FFFFFF', nameB:'#C9D3EC', vignette:'rgba(0,0,0,0.55)', onAccent:'#0A0D12' },
-    cosmos:{ accent:'#4D9FFF', accentBr:'#7FB8FF', accent2:'#DCE7F5', stars:'#BFD0FF', fog:'#0A0D12', bloom:0.42, light:false } },
-  { name:'Arctic',
-    vars:{ bg:'#0B0D10', bg2:'#101317', navy:'#181C22', panel:'rgba(24,28,34,0.55)', panelLine:'rgba(232,238,246,0.20)', line:'rgba(232,238,246,0.10)',
-      gold:'#E8EEF6', goldBr:'#FFFFFF', cyan:'#9AA8BC', ink:'#F2F5FA', inkSoft:'#B6BFCC', inkMute:'#6F7886',
-      nameA:'#FFFFFF', nameB:'#C9D2DE', vignette:'rgba(0,0,0,0.55)', onAccent:'#0B0D10' },
-    cosmos:{ accent:'#E8EEF6', accentBr:'#FFFFFF', accent2:'#9AA8BC', stars:'#D5DEEA', fog:'#0B0D10', bloom:0.34, light:false } },
-  { name:'Crimson',
-    vars:{ bg:'#0F090C', bg2:'#140C10', navy:'#1D1117', panel:'rgba(29,17,23,0.55)', panelLine:'rgba(255,77,94,0.20)', line:'rgba(255,235,238,0.09)',
-      gold:'#FF4D5E', goldBr:'#FF7585', cyan:'#FFB35C', ink:'#FAEDEF', inkSoft:'#C5A9B0', inkMute:'#82686F',
-      nameA:'#FFFFFF', nameB:'#EBC9D0', vignette:'rgba(0,0,0,0.55)', onAccent:'#FFF7F7' },
-    cosmos:{ accent:'#FF4D5E', accentBr:'#FF7585', accent2:'#FFB35C', stars:'#E2BFC9', fog:'#0F090C', bloom:0.40, light:false } },
-  { name:'Nebula',
-    vars:{ bg:'#0C0A14', bg2:'#100D1B', navy:'#171228', panel:'rgba(23,18,40,0.55)', panelLine:'rgba(157,123,255,0.20)', line:'rgba(235,230,250,0.09)',
-      gold:'#9D7BFF', goldBr:'#B79CFF', cyan:'#5BD8C8', ink:'#EFEAFB', inkSoft:'#B0A8C6', inkMute:'#6E6890',
-      nameA:'#FFFFFF', nameB:'#D2C8EA', vignette:'rgba(0,0,0,0.55)', onAccent:'#140B26' },
-    cosmos:{ accent:'#9D7BFF', accentBr:'#B79CFF', accent2:'#5BD8C8', stars:'#CCC2EE', fog:'#0C0A14', bloom:0.42, light:false } },
-];
-
-function parseColor(s){
-  s = s.trim();
-  if (s[0] === '#'){
-    const h = s.slice(1);
-    return [parseInt(h.slice(0,2),16), parseInt(h.slice(2,4),16), parseInt(h.slice(4,6),16), 1];
-  }
-  const m = s.match(/rgba?\(([^)]+)\)/);
-  const p = m[1].split(',').map(Number);
-  return [p[0], p[1], p[2], p[3] == null ? 1 : p[3]];
-}
-const fmtC = c => `rgba(${c[0]|0},${c[1]|0},${c[2]|0},${(+c[3]).toFixed(3)})`;
-const parseTheme = t => { const o = {}; for (const k in t.vars) o[k] = parseColor(t.vars[k]); return o; };
-
-function applyTokens(o){
-  const set = (k,v)=>document.documentElement.style.setProperty(k,v);
-  set('--bg', fmtC(o.bg));        set('--bg-2', fmtC(o.bg2));       set('--navy', fmtC(o.navy));
-  set('--panel', fmtC(o.panel));  set('--panel-line', fmtC(o.panelLine)); set('--line', fmtC(o.line));
-  set('--gold', fmtC(o.gold));    set('--gold-br', fmtC(o.goldBr)); set('--cyan', fmtC(o.cyan));
-  set('--ink', fmtC(o.ink));      set('--ink-soft', fmtC(o.inkSoft)); set('--ink-mute', fmtC(o.inkMute));
-  set('--accent', fmtC(o.gold));  set('--accent-2', fmtC(o.cyan));
-  set('--name-a', fmtC(o.nameA)); set('--name-b', fmtC(o.nameB));
-  set('--vignette', fmtC(o.vignette)); set('--on-accent', fmtC(o.onAccent));
-  set('--accent-rgb',  `${o.gold[0]|0},${o.gold[1]|0},${o.gold[2]|0}`);
-  set('--accent2-rgb', `${o.cyan[0]|0},${o.cyan[1]|0},${o.cyan[2]|0}`);
-  set('--bg-rgb',      `${o.bg[0]|0},${o.bg[1]|0},${o.bg[2]|0}`);
-  set('--ink-rgb',     `${o.ink[0]|0},${o.ink[1]|0},${o.ink[2]|0}`);
-  set('--glow-gold', `0 0 28px rgba(${o.gold[0]|0},${o.gold[1]|0},${o.gold[2]|0},0.35)`);
-  set('--glow-cyan', `0 0 28px rgba(${o.cyan[0]|0},${o.cyan[1]|0},${o.cyan[2]|0},0.30)`);
-}
-
-let themeIdx = 0, themeAnim = null;
-function setTheme(idx){
-  const target = parseTheme(THEMES[idx]);
-  const fromIdx = themeIdx;
-  themeIdx = idx;
-  if (cosmos) cosmos.setThemeTarget(THEMES[idx].cosmos);
-  document.body.dataset.theme = THEMES[idx].name.toLowerCase();
-  const meta = document.querySelector('meta[name="theme-color"]');
-  if (meta) meta.content = THEMES[idx].vars.bg;
-  if (STATIC){ applyTokens(target); return; }          // reduced motion: instant
-  const from = themeAnim ? themeAnim.snapshot() : parseTheme(THEMES[fromIdx]);
-  if (themeAnim) cancelAnimationFrame(themeAnim.raf);
-  const t0 = performance.now(), dur = 3400;
-  const state = { raf:0, cur:from, snapshot(){ return JSON.parse(JSON.stringify(state.cur)); } };
-  function step(now){
-    const p = Math.min((now - t0)/dur, 1);
-    const e = p*p*(3-2*p);                              // smoothstep — gentle in/out
-    const mixed = {};
-    for (const k in target){
-      mixed[k] = from[k].map((v,i)=> v + (target[k][i]-v)*e);
-    }
-    state.cur = mixed;
-    applyTokens(mixed);
-    if (p < 1) state.raf = requestAnimationFrame(step);
-    else themeAnim = null;
-  }
-  themeAnim = state;
-  state.raf = requestAnimationFrame(step);
-}
-
-function initThemes(){
-  let start = 0;
-  try { const saved = parseInt(localStorage.getItem('cc-theme-idx'), 10); if (saved >= 0 && saved < THEMES.length) start = saved; } catch(e){}
-  themeIdx = start;
-  applyTokens(parseTheme(THEMES[start]));
-  document.body.dataset.theme = THEMES[start].name.toLowerCase();
-  if (cosmos) cosmos.setThemeTarget(THEMES[start].cosmos);
-  window.__setTheme = setTheme;                          // debug / verification hook
-  setInterval(()=>{
-    const next = (themeIdx + 1) % THEMES.length;
-    setTheme(next);
-    try { localStorage.setItem('cc-theme-idx', String(next)); } catch(e){}
-  }, 15000);
+/* ---------------- THEME DEFAULTS (no UI) ---------------- */
+function applyDefaults(){
+  // fusion accent (bright-gold core + cyan secondary) as default
+  document.documentElement.style.setProperty('--accent', '#FFCB45');
+  document.documentElement.style.setProperty('--accent-2', '#27E1C1');
+  if (cosmos){ cosmos.setAccent('#FFCB45'); cosmos.setMotion(HYPER); }
 }
 
 /* ---------------- INIT ---------------- */
@@ -721,18 +430,14 @@ function init(){
   initCards();
   initPointer();
   initSkillsRail();
-  initPortrait();
-  initNameFlight();
-  initThemes();
-  if (cosmos) cosmos.setMotion(HYPER);
-  if (STATIC){ heroTyper(); navTyper(); }
+  applyDefaults();
+  if (STATIC) heroTyper();
 }
 
 window.addEventListener('DOMContentLoaded', ()=>{
   runBoot(()=>{
     if (cosmos){ cosmos.start(); cosmos.flyTo('hero'); }
     heroTyper();
-    navTyper();
   });
   init();
   if (cosmos) cosmos.start();
