@@ -6,7 +6,7 @@
 <title>Achu Pradeep — Linux DevOps · AI Agents · Algo-Trading</title>
 <meta name="description" content="Achu Pradeep — Linux DevOps Engineer, AI-Agent Developer and Algorithmic-Trading Systems Builder. 4+ years building observable, hardened infrastructure, autonomous agents and 24/7 trading systems." />
 <meta name="author" content="Achu Pradeep" />
-<meta name="theme-color" content="#050A14" />
+<meta name="theme-color" content="#0A0D12" />
 <!-- Open Graph -->
 <meta property="og:type" content="website" />
 <meta property="og:title" content="Achu Pradeep — Command Cosmos" />
@@ -58,8 +58,9 @@
 <header class="nav" id="nav">
   <a class="nav__brand" href="#hero" data-fly="hero">
     <span class="nav__mark" aria-hidden="true"></span>
-    <span class="nav__name">ACHU<em>PRADEEP</em></span>
+    <span class="nav__name" id="navName">ACHU<em>PRADEEP</em></span>
   </a>
+  <span class="nav__role" aria-hidden="true"><span id="navRole"></span><span class="cursor cursor--nav"></span></span>
   <nav class="nav__links" aria-label="Primary">
     <a href="#about" data-fly="about">About</a>
     <a href="#skills" data-fly="skills">Skills</a>
@@ -72,13 +73,17 @@
   <button class="nav__menu" id="navmenu" type="button" aria-label="Menu"><span></span><span></span></button>
 </header>
 
+<!-- scroll-scrubbed 3D flying name -->
+<div class="fly-name" id="flyName" aria-hidden="true"><span class="fly-name__inner">ACHU&nbsp;<em>PRADEEP</em></span></div>
+
 <main>
 
 <!-- ============ HERO ============ -->
 <section id="hero" class="section hero" data-cam="hero" data-screen-label="Hero">
+  <div class="hero__pin">
   <div class="hero__content">
     <div class="hero__eyebrow"><span class="dot"></span>COMMAND&nbsp;COSMOS&nbsp;//&nbsp;OPERATOR ONLINE</div>
-    <h1 class="hero__name">Achu&nbsp;Pradeep</h1>
+    <h1 class="hero__name" id="heroNameSlot"><span class="slot-ghost">ACHU&nbsp;PRADEEP</span></h1>
     <div class="hero__role"><span id="role-type"></span><span class="cursor cursor--role" aria-hidden="true"></span></div>
     <p class="hero__sub">Linux DevOps Engineer building observable, hardened infrastructure — plus autonomous AI agents and 24/7 algorithmic-trading systems.</p>
     <div class="hero__meta">
@@ -92,21 +97,31 @@
     </div>
   </div>
   <div class="hero__scroll" aria-hidden="true"><span>scroll to travel</span><i></i></div>
+  </div>
 </section>
 
 <!-- ============ ABOUT ============ -->
 <section id="about" class="section about" data-cam="about" data-screen-label="About">
   <div class="wrap about__grid">
     <div class="about__portrait">
-      <div class="portrait-frame">
-        <img class="portrait-img" src="assets/portrait.jpg" alt="Achu Pradeep" />
+      <div class="portrait-persp">
+      <div class="portrait-frame" id="pframe">
+        <div class="pframe__stack">
+          <img class="pframe__img" src="assets/portrait.jpg" alt="Achu Pradeep" />
+          <img class="pframe__img" src="assets/portrait-3.jpg" alt="" aria-hidden="true" />
+          <img class="pframe__img" src="assets/portrait-2.jpg" alt="" aria-hidden="true" />
+        </div>
         <span class="portrait-grade"></span>
         <span class="portrait-grid"></span>
         <span class="portrait-hud portrait-hud--tl"></span>
         <span class="portrait-hud portrait-hud--br"></span>
         <span class="portrait-scan"></span>
+        <div class="pframe__hud"><span class="pframe__rec"><i></i>AI PORTRAIT · LIVE</span><span class="pframe__tc" id="ptc">00:00:00:00</span></div>
         <span class="portrait-tag">// OPERATOR — A. PRADEEP</span>
+        <span class="pframe__frameno" id="pfno">FRM 01/03</span>
       </div>
+      </div>
+      <div class="name-dock" id="nameDock" aria-hidden="true"></div>
     </div>
     <div class="about__body">
       <p class="kicker">01 — The Operator</p>
