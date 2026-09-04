@@ -33,24 +33,18 @@ const PROJECTS = [
   { name:'jobmind-agent', kind:'MULTI-AGENT', icon:'agent', color:'#A9C9EE', cover:'jobmind', repo:'jobmind-agent',
     desc:'A CrewAI multi-agent job-application pipeline — scrape → score → tailor → generate — wrapped in a Streamlit UI.',
     tags:['CrewAI','Multi-agent','Streamlit','Python'] },
-  { name:'VA-Opensource-Audit', kind:'SOC / SECURITY', icon:'shield', color:'#7DD3FF', cover:'vaaudit', repo:'VA-Opensource-Audit', private:true,
+  { name:'VA-Opensource-Audit', kind:'SOC / SECURITY', icon:'shield', color:'#7DD3FF', cover:'vaaudit', repo:'VA-Opensource-Audit',
     desc:'A self-hosted SOC dashboard for agentless vulnerability auditing (OpenVAS / GVM + ClamAV) across Linux servers, with JWT + TOTP access control.',
     tags:['OpenVAS / GVM','ClamAV','JWT + TOTP','SOC'] },
-  { name:'xauusd-fvg-algo', kind:'GOLD TRADING', icon:'candle', color:'#CFE3FA', cover:'xauusd', repo:'xauusd-fvg-algo', private:true,
+  { name:'xauusd-fvg-algo', kind:'GOLD TRADING', icon:'candle', color:'#CFE3FA', cover:'xauusd', repo:'xauusd-fvg-algo',
     desc:'A 24/7 multi-broker automated gold (XAUUSD) trading system — FastAPI + React dashboard with Telegram alerts.',
     tags:['FastAPI','React','FVG','Telegram','Multi-broker'] },
-  { name:'sma_cross_scalp_bot', kind:'FOREX SCALPER', icon:'bolt', color:'#8FA3BD', cover:'sma', repo:'sma_cross_scalp_bot', private:true,
+  { name:'sma_cross_scalp_bot', kind:'FOREX SCALPER', icon:'bolt', color:'#8FA3BD', cover:'sma', repo:'sma_cross_scalp_bot',
     desc:'A 24/7 forex / CFD scalping bot — FastAPI + React + MariaDB with automated risk controls.',
     tags:['FastAPI','React','MariaDB','Risk controls'] },
-  { name:'OBStat', kind:'MARKET ANALYTICS', icon:'chart', color:'#BFD9F2', cover:'obstat', repo:'OBStat', private:true,
-    desc:'A 1-minute Smart-Money-Concepts scalping engine — order-block scanner, entry logic and a position manager, built for systematic intraday research.',
-    tags:['SMC','Order blocks','Scanner','Python'] },
-  { name:'pulse-crm', kind:'BUSINESS PLATFORM', icon:'agent', color:'#9ED6C0', cover:'jobmind', repo:'pulse-crm', private:true,
-    desc:'An internal CRM, public ad funnel and WhatsApp commerce platform on one database — real-time lead capture, a conversational sales bot, role-based access and verified backup/restore.',
-    tags:['Next.js 16','TypeScript','Prisma','PostgreSQL','Auth.js'] },
-  { name:'mt5-lab', kind:'STRATEGY LAB', icon:'candle', color:'#E0C48F', cover:'xauusd', repo:'mt5-lab', private:true,
-    desc:'Eleven native MQL5 expert advisors with a headless compile and backtest toolchain — every strategy carries its own measured numbers and its own control.',
-    tags:['MQL5','MetaTrader 5','Backtesting','Python'] },
+  { name:'OBStat', kind:'MARKET ANALYTICS', icon:'chart', color:'#BFD9F2', cover:'obstat', repo:'OBStat',
+    desc:'Order-book & market-microstructure analytics for algorithmic-trading research.',
+    tags:['Order book','Microstructure','Analytics','Research'] },
 ];
 
 const EXPERIENCE = [
@@ -271,17 +265,7 @@ function openModal(i){
   document.getElementById('modal-desc').textContent = p.desc;
   document.getElementById('modal-tags').innerHTML = p.tags.map(t=>`<li>${t}</li>`).join('');
   const gh = document.getElementById('modal-gh');
-  // A private repo 404s for every visitor who is not the owner, so link only
-  // what the public can actually open.
-  if (p.private){
-    gh.removeAttribute('href');
-    gh.classList.add('btn--muted');
-    gh.textContent = 'Private repository — available on request';
-  } else {
-    gh.href = `https://github.com/achupradeep3050/${p.repo}`;
-    gh.classList.remove('btn--muted');
-    gh.textContent = 'View on GitHub';
-  }
+  gh.href = `https://github.com/achupradeep3050/${p.repo}`;
   document.getElementById('modal-media').innerHTML =
     `<img class="modal-cover" src="assets/cover-${p.cover}.jpg" alt="${p.name} cover" />
      <span class="modal-cover__scan"></span>

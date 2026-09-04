@@ -628,12 +628,3 @@ main, .nav, .footer, .modal{ position:relative; z-index:4; }
   .portrait-scan, .hero__scroll i, .nav__mark::after, .cursor{ animation:none; }
   *{ scroll-behavior:auto !important; }
 }
-
-/* A private repo has no link target — the button states that plainly rather
-   than sending a visitor to a 404. */
-.btn--muted{
-  cursor:default;
-  opacity:.72;
-  pointer-events:none;
-  border-style:dashed;
-}
